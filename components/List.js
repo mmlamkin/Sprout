@@ -6,6 +6,9 @@ import Organizer from './Organizer'
 import Plant from './Plant'
 
 class List extends Component {
+  static navigationOptions = {
+    header: null
+  };
   constructor(props) {
     super(props);
     this.state = {
@@ -32,7 +35,7 @@ class List extends Component {
   render () {
 
     return (
-      
+
       <ScrollView>{this.renderPlants()}</ScrollView>
     );
   }

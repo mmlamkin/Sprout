@@ -5,23 +5,14 @@ import HomeScreen from './components/HomeScreen'
 import List from './components/List'
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { NativeRouter, Route, Link } from 'react-router-native';
-import {
-  createStackNavigator,
-} from 'react-navigation';
+import { createStackNavigator,} from 'react-navigation';
 
 const App = createStackNavigator({
-  Home: { screen: HomeScreen },
+
+  Home: { screen: HomeScreen},
   Garden: { screen: Garden },
-  Browse: { screen: List},
-});
+  Browse: { screen: List },
+},
+{ headerMode: 'screen' });
 
 export default App;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

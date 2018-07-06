@@ -3,11 +3,16 @@ import { View, Image, Text, Button, ScrollView  } from 'react-native';
 
 
 class Garden extends Component {
+  static navigationOptions = {
+    header: null
+  };
 
   render () {
 
     return (
-      <View>Your Plants</View>
+      <View>
+        <Text>Your Plants</Text>
+      </View>
     );
   }
 }
