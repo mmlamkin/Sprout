@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { View, Image, Text, StyleSheet  } from 'react-native';
-import { SearchBar } from 'react-native-elements'
-import { Header } from 'react-native-elements';
-import { Button } from 'react-native-elements';
+import { Header, Button, SearchBar, ListItem } from 'react-native-elements';
+import HomeNavigation from './HomeNavigation'
 
 class HomeScreen extends Component {
   static navigationOptions = {
@@ -10,7 +9,6 @@ class HomeScreen extends Component {
   };
 
   render () {
-
     const { navigate } = this.props.navigation;
 
     return (
@@ -19,38 +17,40 @@ class HomeScreen extends Component {
         <Header style={styles.header_style}
           leftComponent={{ icon: 'home', color: '#fff' }}
           centerComponent={{ text: 'Sprout', style: { color: '#fff' } }}
-          rightComponent={{icon: 'home', color: '#fff'}} />
+          rightComponent={<SearchBar />} />
 
+          <View style={styles.buttons}>
+          <Button
+          title="Your Garden"
+          onPress={() =>
+           navigate('Garden')
+          }
+          buttonStyle={{
+            backgroundColor: "green",
+            width: 300,
+            height: 45,
+            borderColor: "transparent",
+            borderWidth: 0,
+            borderRadius: 10
+          }}
+          />
 
-        <Button
-        title="Your Garden"
-        onPress={() =>
-         navigate('Garden')
-        }
-        buttonStyle={{
-          backgroundColor: "green",
-          width: 300,
-          height: 45,
-          borderColor: "transparent",
-          borderWidth: 0,
-          borderRadius: 10
-        }}
-        />
+          <Button
+          title="Browse Plants"
+          onPress={() =>
+          navigate('Browse', { name: 'Jane' })
+          }
+          buttonStyle={{
+            backgroundColor: "green",
+            width: 300,
+            height: 45,
+            borderColor: "transparent",
+            borderWidth: 0,
+            borderRadius: 10
+          }}
+          />
+          </View>
 
-        <Button
-        title="Browse Plants"
-        onPress={() =>
-        navigate('Browse', { name: 'Jane' })
-        }
-        buttonStyle={{
-          backgroundColor: "green",
-          width: 300,
-          height: 45,
-          borderColor: "transparent",
-          borderWidth: 0,
-          borderRadius: 10
-        }}
-        />
         </View>
     );
   }
@@ -61,7 +61,7 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: '#fff',
+    backgroundColor: '#fff',
     // alignItems: 'stretch',
     // justifyContent: 'space-around',
   },
@@ -71,5 +71,12 @@ const styles = StyleSheet.create({
   backgroundColor: '#00BCD4',
   alignItems: 'center',
   position: "absolute",
-  }
+},
+  buttons: {
+    flex: .5,
+    backgroundColor: '#fff',
+    alignItems: 'stretch',
+    justifyContent: 'space-around',
+
+  },
 });

@@ -9,8 +9,10 @@ class Plant extends Component {
 
     return (
       <View>
-        <Image source={{uri: this.props.image}} />
+        <Image style={{width: 50, height: 50}} source={{uri: this.props.image}} />
         <Text>{this.props.name}</Text>
+        <Text>{this.props.maintenance}</Text>
+
       </View>
     );
   }
