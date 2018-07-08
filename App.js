@@ -1,19 +1,14 @@
+
 import React from 'react';
-import Plant from './components/Plant'
-import Garden from './components/Garden'
-import HomeScreen from './components/HomeScreen'
-import List from './components/List'
-import { StyleSheet, Text, View, Button } from 'react-native';
-import { Route, Link } from 'react-router-native';
-import { createStackNavigator, createMaterialTopNavigator } from 'react-navigation';
+import { StyleSheet, View } from 'react-native';
+import Sprout from './src/components/Sprout'
 
-const App = createStackNavigator({
+export default class App extends React.Component {
+  render() {
+    return (
 
-  Home: { screen: HomeScreen},
-  Garden: { screen: Garden },
-  Browse: { screen: List },
-  Plant: { screen: Plant}
-},
-{ headerMode: 'screen' });
+        <Sprout />
 
-export default App;
+    );
+  }
+}

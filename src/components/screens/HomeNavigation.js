@@ -13,7 +13,7 @@ class HomeNavigation extends Component {
 
 
     return (
-      <View style={styles.container}>
+      <View style={{flex: 1, width: 100 + "%", height: 100 + "%"}}>
 
         <Button
         title="Your Garden"
@@ -51,18 +51,18 @@ class HomeNavigation extends Component {
 
 export default HomeNavigation;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    // backgroundColor: '#fff',
-    // alignItems: 'stretch',
-    // justifyContent: 'space-around',
-  },
-  header_style: {
-    width: '100%',
-  height: 45,
-  backgroundColor: '#00BCD4',
-  alignItems: 'center',
-  position: "absolute",
-  }
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     // backgroundColor: '#fff',
+//     // alignItems: 'stretch',
+//     // justifyContent: 'space-around',
+//   },
+//   header_style: {
+//     width: '100%',
+//   height: 45,
+//   backgroundColor: '#00BCD4',
+//   alignItems: 'center',
+//   position: "absolute",
+//   }
+// });
