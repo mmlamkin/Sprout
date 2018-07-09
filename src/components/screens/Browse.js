@@ -1,31 +1,30 @@
-import React, {Component} from 'react'
-import { View, Text, StyleSheet, Image, Dimensions, TextInput, ListView } from 'react-native'
+import React, {Component, axios} from 'react'
+import { View, Text, StyleSheet, Image, TextInput, ListView } from 'react-native'
 import { Button, Header, SearchBar } from 'react-native-elements'
 import { List } from "../containers"
+import PLANTDATA from '../../../test-data/plants'
 
 class Browse extends Component {
   constructor() {
   super()
   this.state = {
     query: '',
-    plants: []
+    plants: PLANTDATA
   }
 }
 
   // componentDidMount() {
-  //
-  //   return ( fetch()
-  //   .then((response) => response.json())
-  //     .then((responseJson) => {
-  //     this.setState ({
-  //       plants: responseJson });
-  //
-  //     })
-  //  .catch((error) =>{
-  //     console.error(error);
-  //   })
-  // )
-  // }
+  //   return fetch('http://localhost3000/plants')
+  //    .then((response) => response.json())
+  //    .then((responseJson) => {
+  //      return responseJson;
+  //    })
+  //    .catch((error) => {
+  //      console.error(error);
+  //    });
+  //  }
+
+
 
     handleQueryChange = query =>
         this.setState(state => ({ ...state, query: query || "" }));
@@ -53,7 +52,7 @@ class Browse extends Component {
           />
 
 
-        <List />
+        <List plants={this.state.plants}/>
       </View>
     )
   }
