@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
-import { View, Text, Button } from 'react-native'
+import { View, Text, Button, Image } from 'react-native'
+import config from "../../config"
 
 
 class Login extends Component {
@@ -12,14 +13,17 @@ class Login extends Component {
 
     return(
       <View style={{flex: 1, height: 100 + "%", width: 100 + "%", justifyContent:"center", alignItems: "center"}}>
-
+      <Image style={{height: 200,
+        width: 100, tintColor: '#8FD65C'}}
+        source = {config.images.sproutBig}/>
+      <Text style={{fontSize: 25, marginVertical: 10}}>Sprout</Text>
       <Button
       title="Login"
       onPress={() =>
        this.login()
       }
       buttonStyle={{
-        backgroundColor: "green",
+
         width: 300,
         height: 45,
         borderColor: "transparent",

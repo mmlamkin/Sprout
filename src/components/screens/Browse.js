@@ -72,5 +72,8 @@ const styles = StyleSheet.create({
   },
   searchButton: {
     height: 30,
+  },
+  header_style: {
+    backgroundColor: '#8FD65C'
   }
 })

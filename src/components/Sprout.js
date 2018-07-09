@@ -2,17 +2,20 @@ import React, { Component } from 'react'
 import Plant from './presentation'
 import { Garden, Login, Browse, PlantView} from './screens'
 import { StyleSheet, Text, View, Button } from 'react-native';
-import { createBottomTabNavigator, createSwitchNavigator} from 'react-navigation'
+import { createBottomTabNavigator, createSwitchNavigator} from  'react-navigation'
+
 
 const Tabs = createBottomTabNavigator({
   Browse: Browse,
   Garden: Garden,
-  Plant: PlantView
+  PlantView: PlantView
+
 })
 
 const MainStack = createSwitchNavigator({
   login: Login,
-  main: Tabs
+  main: Tabs,
+
 })
 
 class Sprout extends Component {
