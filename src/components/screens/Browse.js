@@ -6,7 +6,7 @@ import PLANTDATA from '../../../test-data/plants'
 import axios from 'axios';
 import { createStackNavigator} from  'react-navigation';
 import PlantView from './PlantView';
-import Config from 'react-native-config'
+import Config from '../../../env'
 
 
 
