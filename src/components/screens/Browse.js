@@ -5,7 +5,9 @@ import { List } from "../containers"
 import PLANTDATA from '../../../test-data/plants'
 import axios from 'axios';
 import { createStackNavigator} from  'react-navigation';
-import PlantView from './PlantView'
+import PlantView from './PlantView';
+import Config from 'react-native-config'
+
 
 
 class BrowseView extends Component {
@@ -13,14 +15,13 @@ class BrowseView extends Component {
   super()
   this.state = {
     query: '',
-    plants: PLANTDATA
+    plants: []
   }
 }
 
   componentDidMount() {
-    axios.get('http:///plants')
+    axios.get(`http://${Config.PLANTS_API}/plants`)
      .then((response) => {
-       console.log(response);
        this.setState({plants: response.data})
      })
      .catch((error) => {
