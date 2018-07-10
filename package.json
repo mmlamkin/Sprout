@@ -27,5 +27,8 @@
     "react-native-search-bar": "^3.4.2",
     "react-navigation": "^2.5.5",
     "react-router-native": "^4.3.0"
-  }
+  },
+  "rnpm": {
+  "assets": ["./assets/fonts"]
+}
 }

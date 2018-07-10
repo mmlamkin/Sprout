@@ -1,14 +1,11 @@
 import React, { Component } from 'react'
-import Plant from './presentation'
-import { Garden, Login, Browse, PlantView} from './screens'
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { Garden, Login, Browse} from './screens'
 import { createBottomTabNavigator, createSwitchNavigator} from  'react-navigation'
 
 
 const Tabs = createBottomTabNavigator({
   Browse: Browse,
-  Garden: Garden,
-  PlantView: PlantView
+  Garden: Garden
 
 })
 

@@ -15,12 +15,13 @@ class List extends Component {
       console.log(plant);
       return (
         <Plant
-        key={i}
-        name={plant.name}
-        image={plant.image}
-        description={plant.description}
+          key={i}
+          name={plant.name}
+          image={plant.image}
+          description={plant.description}
+          showPlant={this.props.showPlant}
         />
-      
+
       );
     });
     return plants

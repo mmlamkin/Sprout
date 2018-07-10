@@ -5,10 +5,6 @@ import { Button } from 'react-native-elements'
 
 class Plant extends Component {
 
-  showPlant() {
-    this.props.navigation.navigate('plantView')
-  }
-
   render () {
 
     return (
@@ -31,7 +27,7 @@ class Plant extends Component {
 
           }}
           onPress={() =>
-           this.showPlant()
+           this.props.showPlant()
           }/>
           <Button title='Add to Garden'
           containerStyle={{fontSize: 2, marginTop: 20}}
@@ -72,6 +68,7 @@ plantContainer: {
 },
 summaryContainer: {
   flexDirection: "column",
-  width: 45 + "%"
+  width: 45 + "%",
+  justifyContent: "space-around"
 }
 });

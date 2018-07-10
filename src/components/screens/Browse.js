@@ -1,10 +1,14 @@
-import React, {Component, axios} from 'react'
+import React, {Component} from 'react'
 import { View, Text, StyleSheet, Image, TextInput, ListView } from 'react-native'
 import { Button, Header, SearchBar } from 'react-native-elements'
 import { List } from "../containers"
 import PLANTDATA from '../../../test-data/plants'
+import axios from 'axios';
+import { createStackNavigator} from  'react-navigation';
+import PlantView from './PlantView'
 
-class Browse extends Component {
+
+class BrowseView extends Component {
   constructor() {
   super()
   this.state = {
@@ -13,16 +17,17 @@ class Browse extends Component {
   }
 }
 
-  // componentDidMount() {
-  //   return fetch('http://localhost3000/plants')
-  //    .then((response) => response.json())
-  //    .then((responseJson) => {
-  //      return responseJson;
-  //    })
-  //    .catch((error) => {
-  //      console.error(error);
-  //    });
-  //  }
+  componentDidMount() {
+    axios.get('http:///plants')
+     .then((response) => {
+       console.log(response);
+       this.setState({plants: response.data})
+     })
+     .catch((error) => {
+       console.error(error);
+     });
+     //console.log(this.state.plants);
+   }
 
 
 
@@ -33,13 +38,16 @@ class Browse extends Component {
 
     handleSearchClear = () => this.handleQueryChange("");
 
+  showPlant = () => this.props.navigation.navigate('PlantView')
+
   render(){
 
     return(
       <View style={{flex: 1, width: 100 + "%", height: 100 + "%"}}>
-        <Header style={styles.header_style}
+      <Header style={styles.header_style}
         leftComponent={{ icon: 'home', color: '#fff' }}
-        centerComponent={{ text: 'Sprout', style: { color: '#fff' } }}  />
+        centerComponent={{ text: 'Sprout', style: { color: '#fff' } }}
+       />
 
         <SearchBar
           lightTheme
@@ -51,14 +59,25 @@ class Browse extends Component {
           placeholder='Search Plants...'
           />
 
-
-        <List plants={this.state.plants}/>
+        <List
+          showPlant={this.showPlant} plants={this.state.plants}
+        />
       </View>
     )
   }
 }
 
-export default Browse
+export default createStackNavigator(
+  {
+    Browse: BrowseView,
+    PlantView: PlantView,
+  },
+  {
+    initialRouteName: 'Browse',
+  }
+);
+
+
 
 const styles = StyleSheet.create({
 
