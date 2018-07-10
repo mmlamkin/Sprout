@@ -9,26 +9,20 @@ import {Plant} from '../presentation'
 class List extends Component {
 
 
-  _renderPlants = () => {
-
-    const plants = (this.props.plants).map((plant, i) => {
-      console.log(plant);
+  _renderPlants = ({ item }) => {
+    const plant = item
       return (
         <Plant
-          key={i}
           name={plant.name}
           image={plant.image}
           description={plant.description}
           showPlant={this.props.showPlant}
         />
-
-      );
-    });
-    return plants
+    );
   }
 
   _returnKey(item){
-  return item.toString()
+  return item.id.toString()
 }
 
   render () {
@@ -37,7 +31,7 @@ class List extends Component {
     <FlatList
       data={this.props.plants}
       keyExtractor={this._returnKey}
-      renderItem={() => this._renderPlants() }
+      renderItem={this._renderPlants}
       />
     );
   }
