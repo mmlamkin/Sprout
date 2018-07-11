@@ -1,9 +1,28 @@
 import React, { Component } from 'react'
 import { View, Image, Text, StyleSheet  } from 'react-native';
-import { Button } from 'react-native-elements'
+import { Button } from 'react-native-elements';
+import Config from '../../../env';
+import axios from 'axios';;
+
 
 
 class Plant extends Component {
+
+
+
+  addToGarden() {
+    const url = `http://${Config.PLANTS_API}/users/` + 1 + '/plants/' + this.props.plant_id
+    console.log(url);
+    axios.patch(url)
+    .then(function (response) {
+      alert('success!')
+      console.log(response);
+    })
+    .catch(function (error) {
+      alert("failed")
+      console.log(error);
+    });
+  }
 
   render () {
 
@@ -40,7 +59,10 @@ class Plant extends Component {
             borderRadius: 25,
             justifyContent: "center", alignItems: "center"
 
-          }}/>
+          }}
+          onPress={() =>
+           this.addToGarden()
+          }/>
           </View>
           </View>
 

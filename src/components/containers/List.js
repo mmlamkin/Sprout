@@ -13,6 +13,7 @@ class List extends Component {
     const plant = item
       return (
         <Plant
+          plant_id={plant.id}
           name={plant.name}
           image={plant.image}
           description={plant.description}
