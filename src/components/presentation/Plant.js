@@ -15,7 +15,7 @@ class Plant extends Component {
     console.log(url);
     axios.patch(url)
     .then(function (response) {
-      alert(this.props.name + 'added to garden')
+      alert('Plant added to garden')
     })
     .catch(function (error) {
       alert(error.errors)
