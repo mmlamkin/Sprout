@@ -15,11 +15,10 @@ class Plant extends Component {
     console.log(url);
     axios.patch(url)
     .then(function (response) {
-      alert('success!')
-      console.log(response);
+      alert(this.props.name + 'added to garden')
     })
     .catch(function (error) {
-      alert("failed")
+      alert(error.errors)
       console.log(error);
     });
   }
@@ -28,6 +27,7 @@ class Plant extends Component {
 
     return (
       <View style={styles.plantContainer}>
+
         <Image style={styles.imageStyle} source={{uri: "https:" + this.props.image}} />
         <View style={styles.summaryContainer}>
           <Text style={{alignSelf: "center"}}>{this.props.name}</Text>
