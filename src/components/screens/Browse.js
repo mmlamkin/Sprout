@@ -1,14 +1,11 @@
 import React, {Component} from 'react'
 import { View, Text, StyleSheet, Image, TextInput, ListView } from 'react-native'
-import { Button, Header, SearchBar } from 'react-native-elements'
+import { Header, SearchBar } from 'react-native-elements'
 import { List } from "../containers"
-import PLANTDATA from '../../../test-data/plants'
 import axios from 'axios';
 import { createStackNavigator} from  'react-navigation';
 import PlantView from './PlantView';
 import Config from '../../../env'
-
-
 
 class BrowseView extends Component {
   constructor() {
@@ -19,6 +16,19 @@ class BrowseView extends Component {
   }
 }
 
+static navigationOptions = {
+    title: 'Sprout',
+    headerStyle: {
+      backgroundColor: "#12e539",
+    },
+    headerTintColor: '#fff',
+
+    headerTitleStyle: {
+      fontWeight: 'bold',
+      textAlign: "center"
+    },
+  };
+
   componentDidMount() {
     axios.get(`http://${Config.PLANTS_API}/plants`)
      .then((response) => {
@@ -27,10 +37,8 @@ class BrowseView extends Component {
      .catch((error) => {
        console.error(error);
      });
-     //console.log(this.state.plants);
+
    }
-
-
 
     handleQueryChange = query =>
         this.setState(state => ({ ...state, query: query || "" }));
@@ -45,10 +53,6 @@ class BrowseView extends Component {
 
     return(
       <View style={{flex: 1, width: 100 + "%", height: 100 + "%"}}>
-      <Header style={styles.header_style}
-        leftComponent={{ icon: 'home', color: '#fff' }}
-        centerComponent={{ text: 'Sprout', style: { color: '#fff' } }}
-       />
 
         <SearchBar
           lightTheme
@@ -63,7 +67,8 @@ class BrowseView extends Component {
         <List
           showPlant={this.showPlant} plants={this.state.plants}
         />
-      </View>
+        </View>
+
     )
   }
 }
@@ -77,8 +82,6 @@ export default createStackNavigator(
     initialRouteName: 'Browse',
   }
 );
-
-
 
 const styles = StyleSheet.create({
 

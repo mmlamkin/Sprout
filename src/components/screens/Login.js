@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import { View, Text, Button, Image, TextInput } from 'react-native'
-import config from "../../config"
+import { View, Text, Button, Image, TextInput } from 'react-native';
+import config from "../../config";
 
 
 class Login extends Component {

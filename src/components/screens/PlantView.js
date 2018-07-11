@@ -17,11 +17,6 @@ class PlantView extends Component {
   render(){
 
     return(
-      <View>
-      <Header style={styles.header_style}
-        leftComponent={{ icon: 'home', color: '#fff' }}
-        centerComponent={{ text: 'Sprout', style: { color: '#fff' } }}
-       />
 
       <ScrollView >
       <View style={styles.outerContainer}>
@@ -43,7 +38,7 @@ class PlantView extends Component {
         <Text>TMI: {this.state.plant.other_care}</Text>
         </View>
       </ScrollView>
-      </View>
+
     )
   }
 }
