@@ -18,6 +18,7 @@ class List extends Component {
           image={plant.image}
           description={plant.description}
           showPlant={this.props.showPlant}
+          garden={this.props.garden}
         />
     );
   }

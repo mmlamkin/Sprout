@@ -8,7 +8,31 @@ import axios from 'axios';;
 
 class Plant extends Component {
 
+  constructor() {
+  super()
+  this.state = {
+    user_id: 0
+  }
+}
 
+buttonTitle= () => {
+  if (!this.props.garden) {
+    return (<Button title='Add to Garden'
+  containerStyle={{fontSize: 2, marginTop: 20}}
+  buttonStyle={styles.button}
+  onPress={() =>
+   this.addToGarden()
+ }/>)}
+
+  else {
+    return (<Button title='Delete'
+  containerStyle={{fontSize: 2, marginTop: 20}}
+  buttonStyle={styles.button}
+  onPress={() =>
+   this.addToGarden()
+ }/>)
+  }
+}
 
   addToGarden() {
     const url = `http://${Config.PLANTS_API}/users/` + 1 + '/plants/' + this.props.plant_id
@@ -19,7 +43,7 @@ class Plant extends Component {
     })
     .catch(function (error) {
       alert(error.errors)
-      console.log(error);
+      console.log(error.errors);
     });
   }
 
@@ -35,34 +59,12 @@ class Plant extends Component {
           <View style={{flexDirection: 'row', justifyContent: "space-between", marginTop: 4}}>
           <Button title='More...'
             containerStyle={{fontSize: 4, marginTop: 20}}
-           buttonStyle={{
-            backgroundColor: "#C71585",
-            width: 60,
-            height: 20,
-            borderColor: "transparent",
-            borderWidth: 0,
-            borderRadius: 25,
-            justifyContent: "center", alignItems: "center"
-
-          }}
+           buttonStyle={styles.button}
           onPress={() =>
            this.props.showPlant()
           }/>
-          <Button title='Add to Garden'
-          containerStyle={{fontSize: 2, marginTop: 20}}
-          buttonStyle={{
-            backgroundColor: '#C71585',
-            width: 60,
-            height: 20,
-            borderColor: "transparent",
-            borderWidth: 0,
-            borderRadius: 25,
-            justifyContent: "center", alignItems: "center"
+          {this.buttonTitle()}
 
-          }}
-          onPress={() =>
-           this.addToGarden()
-          }/>
           </View>
           </View>
 
@@ -92,5 +94,12 @@ summaryContainer: {
   flexDirection: "column",
   width: 45 + "%",
   justifyContent: "space-around"
-}
+},
+button: {backgroundColor: '#C71585',
+width: 60,
+height: 20,
+borderColor: "transparent",
+borderWidth: 0,
+borderRadius: 25,
+justifyContent: "center", alignItems: "center"}
 });

@@ -4,29 +4,18 @@ import { Header, Button, SearchBar } from 'react-native-elements';
 import { List } from "../containers";
 import PlantView from './PlantView';
 import axios from 'axios';
-import Config from '../../../env'
+import Config from '../../../env';
+import config from "../../config";
 
 
 class Garden extends Component {
   constructor() {
   super()
   this.state = {
-    plants: []
+    plants: [],
+    user_id: 0
   }
 }
-
-static navigationOptions = {
-    title: 'Sprout',
-    headerStyle: {
-      backgroundColor: "#12e539",
-    },
-    headerTintColor: '#fff',
-
-    headerTitleStyle: {
-      fontWeight: 'bold',
-      textAlign: "center"
-    },
-  };
 
   componentDidMount() {
     axios.get(`http://${Config.PLANTS_API}/users/1/gardens`)
@@ -34,17 +23,26 @@ static navigationOptions = {
        this.setState({plants: response.data.plants})
      })
      .catch((error) => {
-       alert(error)
+       alert(error.errors)
        console.error(error);
      });
 
    }
+
    showPlant = () => this.props.navigation.navigate('PlantView')
+
 
    render(){
 
      return(
        <View style={{flex: 1, width: 100 + "%", height: 100 + "%"}}>
+
+        <Header
+          backgroundColor="#8b81f1"
+
+          centerComponent={{ text: 'Sprout', style: { color: '#fff' } }}
+
+        />
 
          <SearchBar
            lightTheme
@@ -55,10 +53,10 @@ static navigationOptions = {
            icon={{ type: 'font-awesome', name: 'search' }}
            placeholder='Search Plants...'
            />
-
-         <List
-           showPlant={this.showPlant} plants={this.state.plants}
-         />
+          <List
+            showPlant={this.showPlant} plants={this.state.plants}
+            garden={true}
+          />
          </View>
 
      )
@@ -66,14 +64,3 @@ static navigationOptions = {
  }
 
   export default Garden;
-
-  const styles = StyleSheet.create({
-
-  containerStyle: {
-  marginLeft: 10,
-  marginRight: 10,
-  marginBottom: 10,
-  alignItems: 'center'
-  },
-
-  });

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { View, Text, Button, Image, TextInput } from 'react-native';
+import { View, Text, Button, Image, TextInput, StyleSheet } from 'react-native';
 import config from "../../config";
 
 
@@ -20,7 +20,10 @@ class Login extends Component {
   render(){
 
     return(
-      <View style={{flex: 1, height: 100 + "%", width: 100 + "%", justifyContent:"center", alignItems: "center"}}>
+      <View style={styles.container}>
+      <View style={styles.border}>
+      <View style={styles.border}>
+  
       <Image style={{height: 200,
         width: 175}}
         source = {config.images.sproutBig}/>
@@ -47,8 +50,30 @@ class Login extends Component {
       />
 
       </View>
+      </View>
+      </View>
     )
   }
 }
 
 export default Login
+
+const styles = StyleSheet.create({
+  container: {
+
+    flex: 1, height: 100 + "%",
+    width: 100 + "%",
+    justifyContent:"center",
+    alignItems: "center"
+
+  },
+  border: {
+    borderRadius: 4,
+    borderWidth: 5,
+    borderColor: '#ef7d73',
+    height: 80 + "%",
+    width: 80 + "%",
+    justifyContent:"center",
+    alignItems: "center"
+  }
+});
