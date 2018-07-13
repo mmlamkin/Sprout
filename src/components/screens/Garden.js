@@ -27,7 +27,6 @@ class Garden extends Component {
      })
      .catch((error) => {
        alert(error.errors)
-       console.log(error);
      });
 
    }
@@ -35,14 +34,34 @@ class Garden extends Component {
    showPlant = (single_plant_id) => this.props.navigation.navigate('PlantView', {single_plant_id: single_plant_id})
 
    _handleResults(results) {
- this.setState({ results });
-}
-_handleClear() {
-this.setState({
-results: [] });
+     this.setState({ results });
+   }
+
+  _handleClear() {
+    this.setState({
+      results: [] });
+    }
+
+    clearGarden() {
+      const url = `http://${Config.PLANTS_API}/users/` + 1 + '/gardens/'
+      axios.delete(url)
+      .then(function (response) {
+        alert('Garden Cleared')
+        this.setState({plants: response.data.plants})
+      })
+      .catch(function (error) {
+        alert(error.errors)
+      });
+    }
+
+render(){
+  const gardenPlants = this.state.plants
+
+  return gardenPlants.length > 0 ? this.renderPlants() : this.renderNone()
+
 }
 
-   render(){
+   renderPlants(){
      const results = this.state.results
 
      return results.length > 0 ? this.renderResults() : this.renderFullList()
@@ -58,13 +77,20 @@ results: [] });
            data={this.state.plants}
            handleResults={this._handleResults}
            onClear={this._handleClear}
-           showOnLoad
+
          />
 
          <List
            showPlant={this.showPlant} plants={this.state.results}
-           garden={false}
+           garden={true}
          />
+
+         <Button title='Clear Garden'
+       containerStyle={{fontSize: 2, marginTop: 20}}
+       buttonStyle={styles.button}
+       onPress={() =>
+        this.clearGarden()
+      }/>
          </View>
 
      )
@@ -81,12 +107,41 @@ results: [] });
 
          <List
            showPlant={this.showPlant} plants={this.state.plants}
-           garden={false}
+           garden={true}
          />
+
+         <Button title='Clear Garden'
+       containerStyle={{fontSize: 2, marginTop: 20}}
+       buttonStyle={styles.button}
+       onPress={() =>
+        this.clearGarden()
+      }/>
          </View>
+
+     )
+   }
+
+   renderNone(){
+     return(
+       <View style={{flex: 1, width: 100 + "%", height: 100 + "%", backgroundColor: 'white', justifyContent: "center", alignItems: "center"}}>
+          <Text>No Plants in your Garden Yet!</Text>
+          <List
+            garden={true}
+          />
+        </View>
 
      )
    }
  }
 
   export default Garden;
+
+  const styles = StyleSheet.create({
+  button: {backgroundColor: '#C71585',
+  width: 60,
+  height: 20,
+  borderColor: "transparent",
+  borderWidth: 0,
+  borderRadius: 25,
+  justifyContent: "center", alignItems: "center"}
+  });
