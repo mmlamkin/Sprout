@@ -36,7 +36,6 @@ buttonTitle= () => {
 
   addToGarden() {
     const url = `http://${Config.PLANTS_API}/users/` + 1 + '/plants/' + this.props.plant_id
-    console.log(url);
     axios.patch(url)
     .then(function (response) {
       alert('Plant added to garden')
@@ -55,7 +54,7 @@ buttonTitle= () => {
     })
     .catch(function (error) {
       alert(error.errors)
-      console.log(error.errors);
+      console.log(error);
     });
   }
 

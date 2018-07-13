@@ -59,7 +59,6 @@ static navigationOptions = {
   showPlant = (single_plant_id) =>   this.props.navigation.navigate('PlantView', {single_plant_id: single_plant_id})
 
   render(){
-    console.log(this.state.query);
     return(
       <View style={{flex: 1, width: 100 + "%", height: 100 + "%", backgroundColor: 'white'}}>
 

@@ -13,7 +13,8 @@ class Garden extends Component {
   super()
   this.state = {
     plants: [],
-    user_id: 0
+    user_id: 0,
+    
   }
 }
 
@@ -24,12 +25,12 @@ class Garden extends Component {
      })
      .catch((error) => {
        alert(error.errors)
-       console.error(error);
+       console.log(error);
      });
 
    }
 
-   showPlant = (single_plant_id) => this.props.navigation.navigate('PlantView', single_plant_id)
+   showPlant = (single_plant_id) => this.props.navigation.navigate('PlantView', {single_plant_id: single_plant_id})
 
 
    render(){
