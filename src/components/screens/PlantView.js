@@ -17,7 +17,6 @@ class PlantView extends Component {
     loading: true
   };
   this.getPlant()
-  console.log(this.getPlant(), "faiuwehpfijdvs");
 }
 
 getPlant = () => {

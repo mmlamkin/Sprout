@@ -1,20 +1,23 @@
 import React, {Component} from 'react'
-import { View, Text, StyleSheet, Image, TextInput } from 'react-native'
-import { Header, SearchBar } from 'react-native-elements'
+import { View, Text, StyleSheet, Image } from 'react-native'
+import { Header, Button } from 'react-native-elements'
 import { List } from "../containers"
 import axios from 'axios';
 import { createStackNavigator} from  'react-navigation';
 import PlantView from './PlantView';
 import Config from '../../../env';
 import config from "../../config";
+import SearchBar from 'react-native-searchbar';
 
 class BrowseView extends Component {
   constructor() {
   super()
   this.state = {
     query: '',
-    plants: []
+    plants: [],
+    results: []
   }
+   this._handleResults = this._handleResults.bind(this);
 }
 
 static navigationOptions = {
@@ -49,28 +52,51 @@ static navigationOptions = {
 
    }
 
-    handleQueryChange = query =>
-      this.setState(state => ({ ...state, query: query || "" }));
-
-    handleSearchCancel = () =>   this.handleQueryChange("");
-
-    handleSearchClear = () => this.handleQueryChange("");
+    _handleResults(results) {
+  this.setState({ results });
+}
+_handleClear() {
+this.setState({
+ results: [] });
+}
 
   showPlant = (single_plant_id) =>   this.props.navigation.navigate('PlantView', {single_plant_id: single_plant_id})
 
   render(){
+    const results = this.state.results
+
+    return results.length > 0 ? this.renderResults() : this.renderFullList()
+
+  }
+
+  renderResults(){
     return(
       <View style={{flex: 1, width: 100 + "%", height: 100 + "%", backgroundColor: 'white'}}>
-
         <SearchBar
-          lightTheme
-          onChangeText={this.handleQueryChange}
-          onClear={this.handleSearchClear}
-          onCancel={this.handleSearchCancel}
-          value={this.state.query}
-          icon={{ type: 'font-awesome', name: 'search' }}
-          placeholder='Search Plants...'
-          />
+          ref={(ref) => this.searchBar = ref}
+          data={this.state.plants}
+          handleResults={this._handleResults}
+          onClear={this._handleClear}
+          showOnLoad
+        />
+
+        <List
+          showPlant={this.showPlant} plants={this.state.results}
+          garden={false}
+        />
+        </View>
+
+    )
+  }
+  renderFullList(){
+    return(
+      <View style={{flex: 1, width: 100 + "%", height: 100 + "%", backgroundColor: 'white'}}>
+        <SearchBar
+          ref={(ref) => this.searchBar = ref}
+          data={this.state.plants}
+          handleResults={this._handleResults}
+          showOnLoad
+        />
 
         <List
           showPlant={this.showPlant} plants={this.state.plants}
@@ -91,21 +117,3 @@ export default createStackNavigator(
     initialRouteName: 'Browse',
   }
 );
-
-const styles = StyleSheet.create({
-
-  searchContainer: {
-    flexDirection: "row",
-    marginLeft: 10,
-    marginRight: 10
-  },
-  searchText: {
-    flex: 1
-  },
-  searchButton: {
-    height: 30,
-  },
-  header_style: {
-    backgroundColor: '#8FD65C'
-  }
-})
