@@ -56,7 +56,7 @@ static navigationOptions = {
 
     handleSearchClear = () => this.handleQueryChange("");
 
-  showPlant = () =>   this.props.navigation.navigate('PlantView')
+  showPlant = (single_plant_id) =>   this.props.navigation.navigate('PlantView', {single_plant_id: single_plant_id})
 
   render(){
     console.log(this.state.query);

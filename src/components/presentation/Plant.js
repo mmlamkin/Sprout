@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View, Image, Text, StyleSheet  } from 'react-native';
 import { Button } from 'react-native-elements';
 import Config from '../../../env';
-import axios from 'axios';;
+import axios from 'axios';
 
 
 
@@ -29,7 +29,7 @@ buttonTitle= () => {
   containerStyle={{fontSize: 2, marginTop: 20}}
   buttonStyle={styles.button}
   onPress={() =>
-   this.addToGarden()
+   this.delFromGarden()
  }/>)
   }
 }
@@ -40,6 +40,18 @@ buttonTitle= () => {
     axios.patch(url)
     .then(function (response) {
       alert('Plant added to garden')
+    })
+    .catch(function (error) {
+      alert(error.errors)
+      console.log(error.errors);
+    });
+  }
+
+  delFromGarden() {
+    const url = `http://${Config.PLANTS_API}/users/` + 1 + '/plants/' + this.props.plant_id
+    axios.delete(url)
+    .then(function (response) {
+      alert('Plant removed from garden')
     })
     .catch(function (error) {
       alert(error.errors)
@@ -61,7 +73,7 @@ buttonTitle= () => {
             containerStyle={{fontSize: 4, marginTop: 20}}
            buttonStyle={styles.button}
           onPress={() =>
-           this.props.showPlant()
+           this.props.showPlant(this.props.plant_id)
           }/>
           {this.buttonTitle()}
 

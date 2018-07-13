@@ -29,7 +29,7 @@ class Garden extends Component {
 
    }
 
-   showPlant = () => this.props.navigation.navigate('PlantView')
+   showPlant = (single_plant_id) => this.props.navigation.navigate('PlantView', single_plant_id)
 
 
    render(){

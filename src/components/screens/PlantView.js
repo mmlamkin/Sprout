@@ -4,18 +4,47 @@ import PLANTDATA from '../../../test-data/plants'
 import config from "../../config"
 import { Header } from 'react-native-elements';
 import { Col, Row, Grid } from "react-native-easy-grid";
+import axios from 'axios';
+import Config from '../../../env';
 
 
 class PlantView extends Component {
-  constructor() {
-  super()
+  constructor(props) {
+  super(props)
   this.state = {
     query: '',
-    plant: PLANTDATA[0]
-  }
+    plant: null,
+    loading: true
+  };
+  this.getPlant()
+  console.log(this.getPlant(), "faiuwehpfijdvs");
 }
 
+getPlant = () => {
+
+   axios.get(`http://${Config.PLANTS_API}/plants/` + this.props.navigation.getParam('single_plant_id'))
+
+ .then((response) => {
+   console.log(response, "this is the response");
+   this.setState({plant: response.data, loading: false})
+ })
+ .catch((error) => {
+
+   alert(error.errors)
+   console.error(error);
+ });
+
+}
+
+
   render(){
+    const loading = this.state.loading
+
+    return loading ? <Text>WAIT</Text> : this.renderPage()
+
+  }
+
+  renderPage(){
 
     return(
 
@@ -35,7 +64,7 @@ class PlantView extends Component {
             source = {config.images.plant}/> {this.state.plant.optimal_soil} soil</Text>
         </View>
         <Text>{this.state.plant.description}</Text>
-    
+
         <Text>{this.state.plant.when_to_plant} {this.state.plant.growing_from_seed} {this.state.plant.spacing}</Text>
         <Text>**{this.state.plant.planting_considerations}**</Text>
         <Text style={{fontWeight: 'bold'}}>Watering:</Text><Text> {this.state.plant.watering}</Text>
