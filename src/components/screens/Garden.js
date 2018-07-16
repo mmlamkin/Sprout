@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, Text  } from 'react-native';
+import { View, StyleSheet, Text, Image  } from 'react-native';
 import { Header, Button } from 'react-native-elements';
 import { List } from "../containers";
 import PlantView from './PlantView';
@@ -43,6 +43,14 @@ class Garden extends Component {
       results: [] });
     }
 
+    renderHeader() {
+      <View>
+      <Image style={{height: 30,
+        width: 30}}
+        source = {config.images.sproutLittle}/><Text style={{fontSize: 24, fontWeight: 'bold', paddingLeft: 8, color: '#fff'}}>Sprout</Text>
+        </View>
+      }
+
     clearGarden() {
       const url = `http://${Config.PLANTS_API}/users/` + 1 + '/gardens/' + this.state.garden_id
       axios.delete(url)
@@ -73,6 +81,11 @@ class Garden extends Component {
    renderResults(){
      return(
        <View style={{flex: 1, width: 100 + "%", height: 100 + "%", backgroundColor: 'white'}}>
+       <Header
+
+       centerComponent={this.renderHeader()}
+       outerContainerStyles={{backgroundColor: '#8b81f1', top: 50, height: 70, position: 'absolute'}}
+       />
          <SearchBar
            ref={(ref) => this.searchBar = ref}
            data={this.state.plants}
@@ -99,6 +112,10 @@ class Garden extends Component {
    renderFullList(){
      return(
        <View style={{flex: 1, width: 100 + "%", height: 100 + "%", backgroundColor: 'white'}}>
+        <Header
+          centerComponent={this.renderHeader()}
+          outerContainerStyles={{backgroundColor: '#8b81f1'}}
+        />
          <SearchBar
            ref={(ref) => this.searchBar = ref}
            data={this.state.plants}
@@ -114,6 +131,7 @@ class Garden extends Component {
          <Button title='Clear Garden'
        containerStyle={{fontSize: 2, marginTop: 20}}
        buttonStyle={styles.button}
+       textStyle={{fontSize: 10}}
        onPress={() =>
         this.clearGarden()
       }/>
@@ -125,6 +143,11 @@ class Garden extends Component {
    renderNone(){
      return(
        <View style={{flex: 1, width: 100 + "%", height: 100 + "%", backgroundColor: 'white', justifyContent: "center", alignItems: "center"}}>
+       <Header
+
+       centerComponent={this.renderHeader()}
+       outerContainerStyles={{backgroundColor: '#8b81f1'}}
+       />
           <Text>No Plants in your Garden Yet!</Text>
           <List
             garden={true}
