@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
-import { View, Text, StyleSheet, Image } from 'react-native'
-import { Header, Button } from 'react-native-elements'
+import { View, StyleSheet, Image, Text} from 'react-native'
 import { List } from "../containers"
 import axios from 'axios';
 import { createStackNavigator} from  'react-navigation';
@@ -13,7 +12,6 @@ class BrowseView extends Component {
   constructor() {
   super()
   this.state = {
-    query: '',
     plants: [],
     results: []
   }
@@ -47,18 +45,17 @@ static navigationOptions = {
      })
      .catch((error) => {
        alert(error.errors)
-       console.error(error);
      });
 
    }
 
     _handleResults(results) {
   this.setState({ results });
-}
-_handleClear() {
-this.setState({
- results: [] });
-}
+  }
+  _handleClear() {
+    this.setState({
+      results: [] });
+    }
 
   showPlant = (single_plant_id) =>   this.props.navigation.navigate('PlantView', {single_plant_id: single_plant_id})
 

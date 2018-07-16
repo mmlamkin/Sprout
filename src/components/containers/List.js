@@ -1,9 +1,7 @@
 
 import React, { Component } from 'react'
-import PLANTDATA from '../../../test-data/plants'
-import { View, Image, Text, ScrollView, StyleSheet, FlatList } from 'react-native';
-import { Header, Button, SearchBar, ListItem } from 'react-native-elements';
-import {Plant} from '../presentation'
+import { StyleSheet, FlatList } from 'react-native';
+import {Plant} from '../presentation';
 
 
 class List extends Component {

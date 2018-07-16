@@ -20,6 +20,7 @@ buttonTitle= () => {
     return (<Button title='Add to Garden'
   containerStyle={{fontSize: 2, marginTop: 20}}
   buttonStyle={styles.button}
+  textStyle={{fontSize: 10}}
   onPress={() =>
    this.addToGarden()
  }/>)}
@@ -28,6 +29,7 @@ buttonTitle= () => {
     return (<Button title='Delete'
   containerStyle={{fontSize: 2, marginTop: 20}}
   buttonStyle={styles.button}
+  textStyle={{fontSize: 13}}
   onPress={() =>
    this.delFromGarden()
  }/>)
@@ -42,7 +44,6 @@ buttonTitle= () => {
     })
     .catch(function (error) {
       alert(error.errors)
-      console.log(error.errors);
     });
   }
 
@@ -54,7 +55,6 @@ buttonTitle= () => {
     })
     .catch(function (error) {
       alert(error.errors)
-      console.log(error);
     });
   }
 
@@ -68,9 +68,10 @@ buttonTitle= () => {
           <Text style={{alignSelf: "center"}}>{this.props.name}</Text>
           <Text numberOfLines={4} style={{fontSize: 12}}>{this.props.description}</Text>
           <View style={{flexDirection: 'row', justifyContent: "space-between", marginTop: 4}}>
-          <Button title='More...'
-            containerStyle={{fontSize: 4, marginTop: 20}}
+          <Button title='More'
+            containerStyle={{marginTop: 20, justifyContent: "center", alignItems: "center"}}
            buttonStyle={styles.button}
+           textStyle={{fontSize: 13}}
           onPress={() =>
            this.props.showPlant(this.props.plant_id)
           }/>

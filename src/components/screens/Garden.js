@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import { View, Image, Text, ScrollView, StyleSheet  } from 'react-native';
+import { View, StyleSheet, Text  } from 'react-native';
 import { Header, Button } from 'react-native-elements';
 import { List } from "../containers";
 import PlantView from './PlantView';
 import axios from 'axios';
 import Config from '../../../env';
 import config from "../../config";
-import SearchBar from 'react-native-searchbar'
+import SearchBar from 'react-native-searchbar';
 
 
 class Garden extends Component {
@@ -15,7 +15,8 @@ class Garden extends Component {
   this.state = {
     plants: [],
     user_id: 0,
-    results: []
+    results: [],
+    garden_id: 0
   }
   this._handleResults = this._handleResults.bind(this);
 }
@@ -23,7 +24,7 @@ class Garden extends Component {
   componentDidMount() {
     axios.get(`http://${Config.PLANTS_API}/users/1/gardens`)
      .then((response) => {
-       this.setState({plants: response.data.plants})
+       this.setState({plants: response.data.plants, garden_id: response.data.garden_id})
      })
      .catch((error) => {
        alert(error.errors)
@@ -43,7 +44,7 @@ class Garden extends Component {
     }
 
     clearGarden() {
-      const url = `http://${Config.PLANTS_API}/users/` + 1 + '/gardens/'
+      const url = `http://${Config.PLANTS_API}/users/` + 1 + '/gardens/' + this.state.garden_id
       axios.delete(url)
       .then(function (response) {
         alert('Garden Cleared')
@@ -54,19 +55,19 @@ class Garden extends Component {
       });
     }
 
-render(){
-  const gardenPlants = this.state.plants
+    render(){
+      const gardenPlants = this.state.plants
 
-  return gardenPlants.length > 0 ? this.renderPlants() : this.renderNone()
+      return gardenPlants.length > 0 ? this.renderPlants() : this.renderNone()
 
-}
+    }
 
-   renderPlants(){
-     const results = this.state.results
+    renderPlants(){
+      const results = this.state.results
 
-     return results.length > 0 ? this.renderResults() : this.renderFullList()
+      return results.length > 0 ? this.renderResults() : this.renderFullList()
 
-   }
+    }
 
 
    renderResults(){

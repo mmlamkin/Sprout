@@ -1,6 +1,9 @@
 import React, {Component} from 'react'
 import { View, Text, Button, Image, TextInput, StyleSheet } from 'react-native';
 import config from "../../config";
+import axios from 'axios';
+import Config from '../../../env';
+
 
 
 class Login extends Component {
@@ -13,8 +16,16 @@ class Login extends Component {
 }
 
   login() {
+    // axios.get(`http://${Config.PLANTS_API}/auth/google_oauth2`)
+    //  .then((response) => {
+       this.props.navigation.navigate('main')
+     // })
+     // .catch((error) => {
+     //   alert(error.errors)
+     //   console.log(error);
+     // });
 
-    this.props.navigation.navigate('main')
+
   }
 
   render(){
@@ -23,7 +34,7 @@ class Login extends Component {
       <View style={styles.container}>
       <View style={styles.border}>
       <View style={styles.border}>
-  
+
       <Image style={{height: 200,
         width: 175}}
         source = {config.images.sproutBig}/>
