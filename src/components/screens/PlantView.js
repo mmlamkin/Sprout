@@ -24,17 +24,20 @@ getPlant = () => {
    axios.get(`http://${Config.PLANTS_API}/plants/` + this.props.navigation.getParam('single_plant_id'))
 
  .then((response) => {
-   console.log(response, "this is the response");
    this.setState({plant: response.data, loading: false})
  })
  .catch((error) => {
-
    alert(error.errors)
-   console.error(error);
  });
-
 }
 
+  optimalSoil = () => {
+    this.state.plant.optimal_soil ? <Text><Image style={{height: 35,
+    width: 35}}
+    source = {config.images.plant}/> {this.state.plant.optimal_soil} soil</Text> : <Text><Image style={{height: 35,
+    width: 35}}
+    source = {config.images.plant}/> No special soil needs</Text>
+  }
 
   render(){
     const loading = this.state.loading
@@ -58,9 +61,10 @@ getPlant = () => {
           <Text><Image style={{height: 35,
             width: 35}}
             source = {config.images.sun}/> {this.state.plant.optimal_sun}</Text>
-          <Text><Image style={{height: 35,
+            <Text><Image style={{height: 35,
             width: 35}}
-            source = {config.images.plant}/> {this.state.plant.optimal_soil} soil</Text>
+            source = {config.images.plant}/>  {this.state.plant.optimal_soil} soil</Text>
+
         </View>
         <Text>{this.state.plant.description}</Text>
 
