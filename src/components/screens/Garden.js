@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, Text, Image  } from 'react-native';
+import { View, StyleSheet, Text  } from 'react-native';
 import { Header, Button } from 'react-native-elements';
 import { List } from "../containers";
-import PlantView from './PlantView';
 import axios from 'axios';
 import Config from '../../../env';
-import config from "../../config";
 import SearchBar from 'react-native-searchbar';
 
 

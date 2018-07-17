@@ -1,42 +1,56 @@
-import React, {Component} from 'react'
-import { View, Text, Button, Image, TextInput, StyleSheet } from 'react-native';
+import React, {Component} from 'react';
+import { View, Text, Button, Image, StyleSheet } from 'react-native';
 import config from "../../config";
 import Config from '../../../env';
 import Expo from 'expo';
+import axios from 'axios';
 
 
 class Login extends Component {
   constructor() {
   super()
-  this.state = {
-    text: '',
-    disabled: true
+    this.state = {
+      user_email: '',
+      user_id: ''
+    }
+    this.getUser = this.getUser.bind(this)
   }
-}
 
-async signInWithGoogleAsync() {
+  async getUser(email) {
+    const url = `http://${Config.PLANTS_API}/users?email=` + email
+     const response = await axios.post(url)
+      return response.data.user_id
+
+    // .catch(function (error) {
+    //   console.log(error);
+    // });
+  }
+
+  async signInWithGoogleAsync() {
     try {
       const result =  await Expo.Google.logInAsync({
         androidClientId: Config.ANDROID_ID,
         webClientID: Config.WEBCLIENTID,
         scopes: ['profile', 'email'],
       });
-
       if (result.type === 'success') {
+        const user_id = await this.getUser(result.user.email)
+
+        this.setState({user_id: user_id})
+
         alert("success");
-        console.log(result);
-        this.props.navigation.navigate('main');
+        this.props.navigation.navigate('main', {current_user_id: this.state.user_id});
+
         return result.accessToken;
 
       } else {
-        alert("fails");
-
-        this.props.navigation.navigate('main');
+        alert("Could not complete Login--result isnt success");
         return {cancelled: true};
       }
     } catch(e) {
-      this.props.navigation.navigate('main');
+      alert("Could not complete Login");
       return {error: true};
+      console.log(err);
     }
   }
 
