@@ -6,18 +6,19 @@ import {Plant} from '../presentation';
 
 class List extends Component {
 
-
   _renderPlants = ({ item }) => {
     const plant = item
       return (
         <Plant
+          plant={plant}
           plant_id={plant.id}
           name={plant.name}
           image={plant.image}
           description={plant.description}
           showPlant={this.props.showPlant}
           garden={this.props.garden}
-          refreshPage={this.props.refreshPage}
+          removePlant={this.props.removePlant}
+          addPlant={this.props.addPlant}
         />
     );
   }

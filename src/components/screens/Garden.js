@@ -5,6 +5,7 @@ import { List } from "../containers";
 import axios from 'axios';
 import Config from '../../../env';
 import SearchBar from 'react-native-searchbar';
+import globalState from '../../GlobalState';
 
 
 class Garden extends Component {
@@ -12,7 +13,6 @@ class Garden extends Component {
   super()
   this.state = {
     plants: [],
-    user_id: 0,
     results: [],
     garden_id: 0
   }
@@ -20,7 +20,7 @@ class Garden extends Component {
 }
 
   componentDidMount() {
-    axios.get(`http://${Config.PLANTS_API}/users/1/gardens`)
+    axios.get(`http://${Config.PLANTS_API}/users/${globalState.current_user_id}/gardens`)
      .then((response) => {
        this.setState({plants: response.data.plants, garden_id: response.data.garden_id})
      })
@@ -42,6 +42,16 @@ class Garden extends Component {
       results: [] });
     }
 
+    removePlant = (plant_id) => {
+      console.log(this.state.plants.first);
+      const newPlants = this.state.plants.filter(plant => plant.id !== plant_id)
+      this.setState({plants: newPlants})
+    }
+
+    addPlant = (plant) => {
+      const newPlants = this.state.plants.push(plant)
+      this.setState({plants: newPlants})
+    }
 
     renderHeader() {
 
@@ -50,7 +60,7 @@ class Garden extends Component {
       }
 
     clearGarden() {
-      const url = `http://${Config.PLANTS_API}/users/` + 1 + '/gardens/' + this.state.garden_id
+      const url = `http://${Config.PLANTS_API}/users/${globalState.current_user_id}/gardens/` + this.state.garden_id
       axios.delete(url)
       .then(function (response) {
         alert('Garden Cleared')
@@ -75,7 +85,6 @@ class Garden extends Component {
 
     }
 
-
    renderResults(){
      return(
        <View style={{flex: 1, width: 100 + "%", height: 100 + "%", backgroundColor: 'white'}}>
@@ -93,7 +102,8 @@ class Garden extends Component {
          <List
            showPlant={this.showPlant} plants={this.state.results}
            garden={true}
-
+           removePlant={this.removePlant}
+           addPlant={this.addPlant}
          />
 
          <Button title='Clear Garden'
@@ -124,6 +134,8 @@ class Garden extends Component {
          <List
            showPlant={this.showPlant} plants={this.state.plants}
            garden={true}
+           removePlant={this.removePlant}
+           addPlant={this.addPlant}
          />
 
          <Button title='Clear Garden'

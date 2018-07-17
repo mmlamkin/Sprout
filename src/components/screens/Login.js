@@ -4,6 +4,7 @@ import config from "../../config";
 import Config from '../../../env';
 import Expo from 'expo';
 import axios from 'axios';
+import globalState from '../../GlobalState';
 
 
 class Login extends Component {
@@ -38,8 +39,11 @@ class Login extends Component {
 
         this.setState({user_id: user_id})
 
+        globalState.current_user_id = this.state.user_id
+
         alert("success");
-        this.props.navigation.navigate('main', {current_user_id: this.state.user_id});
+        console.log(this.state.user_id);
+        this.props.navigation.navigate('main');
 
         return result.accessToken;
 

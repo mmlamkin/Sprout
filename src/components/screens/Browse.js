@@ -8,6 +8,7 @@ import Config from '../../../env';
 import config from "../../config";
 import SearchBar from 'react-native-searchbar';
 
+
 class BrowseView extends Component {
   constructor() {
   super()
@@ -40,6 +41,7 @@ static navigationOptions = {
 
   componentDidMount() {
     axios.get(`http://${Config.PLANTS_API}/plants`)
+
      .then((response) => {
        this.setState({plants: response.data})
      })
@@ -51,14 +53,14 @@ static navigationOptions = {
    }
 
     _handleResults(results) {
-  this.setState({ results });
-  }
-  _handleClear() {
-    this.setState({
+      this.setState({ results });
+    }
+    _handleClear() {
+      this.setState({
       results: [] });
     }
 
-  showPlant = (single_plant_id) =>   this.props.navigation.navigate('PlantView', {single_plant_id: single_plant_id})
+    showPlant = (single_plant_id) =>          this.props.navigation.navigate('PlantView', {single_plant_id: single_plant_id})
 
   render(){
     const results = this.state.results
@@ -68,6 +70,7 @@ static navigationOptions = {
   }
 
   renderResults(){
+
     return(
       <View style={{flex: 1, width: 100 + "%", height: 100 + "%", backgroundColor: 'white'}}>
         <SearchBar
@@ -87,6 +90,7 @@ static navigationOptions = {
     )
   }
   renderFullList(){
+
     return(
       <View style={{flex: 1, width: 100 + "%", height: 100 + "%", backgroundColor: 'white'}}>
         <SearchBar

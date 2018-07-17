@@ -3,16 +3,9 @@ import { View, Image, Text, StyleSheet, TouchableOpacity  } from 'react-native';
 import { Button } from 'react-native-elements';
 import Config from '../../../env';
 import axios from 'axios';
-
+import globalState from '../../GlobalState';
 
 class Plant extends Component {
-
-  constructor() {
-  super()
-  this.state = {
-    user_id: 0
-  }
-}
 
 buttonTitle= () => {
   if (!this.props.garden) {
@@ -36,24 +29,26 @@ buttonTitle= () => {
 }
 
   addToGarden() {
-    const url = `http://${Config.PLANTS_API}/users/` + 1 + '/plants/' + this.props.plant_id
+    const url = `http://${Config.PLANTS_API}/users/${globalState.current_user_id}/plants/` + this.props.plant_id
     axios.patch(url)
-    .then(function (response) {
+    .then((response) => {
       alert('Plant added to garden')
+      this.props.addPlant(this.props.plant)
     })
-    .catch(function (error) {
-      alert(error.errors + "add to garden error")
+    .catch((error) => {
+      alert(JSON.stringify(error.errors))
     });
   }
 
   delFromGarden() {
-    const url = `http://${Config.PLANTS_API}/users/` + 1 + '/plants/' + this.props.plant_id
+    const url = `http://${Config.PLANTS_API}/users/${globalState.current_user_id}/plants/` + this.props.plant_id
     axios.delete(url)
-    .then(function (response) {
+    .then((response) => {
       alert('Plant removed from garden')
+      this.props.removePlant(this.props.plant_id)
     })
-    .catch(function (error) {
-      alert(error.errors + 'delete from garden error')
+    .catch((error) => {
+      alert(JSON.stringify(error.errors))
     });
   }
 
