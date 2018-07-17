@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Image, Text, StyleSheet  } from 'react-native';
+import { View, Image, Text, StyleSheet, TouchableOpacity  } from 'react-native';
 import { Button } from 'react-native-elements';
 import Config from '../../../env';
 import axios from 'axios';
@@ -41,6 +41,7 @@ buttonTitle= () => {
     axios.patch(url)
     .then(function (response) {
       alert('Plant added to garden')
+      this.props.refreshPage(response.data.plant)
     })
     .catch(function (error) {
       alert(error.errors)
@@ -52,6 +53,7 @@ buttonTitle= () => {
     axios.delete(url)
     .then(function (response) {
       alert('Plant removed from garden')
+      this.props.refreshPage()
     })
     .catch(function (error) {
       alert(error.errors)
@@ -62,8 +64,9 @@ buttonTitle= () => {
 
     return (
       <View style={styles.plantContainer}>
-
-        <Image style={styles.imageStyle} source={{uri: "https:" + this.props.image}} />
+          <TouchableOpacity onPress={() =>
+           this.props.showPlant(this.props.plant_id)
+          }><Image style={styles.imageStyle} source={{uri: "https:" + this.props.image}} /></TouchableOpacity>
         <View style={styles.summaryContainer}>
           <Text style={{alignSelf: "center"}}>{this.props.name}</Text>
           <Text numberOfLines={4} style={{fontSize: 12}}>{this.props.description}</Text>

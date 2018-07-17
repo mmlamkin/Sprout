@@ -28,7 +28,6 @@ const Tabs = createBottomTabNavigator({
 
         />
   }},
-
 })
 
 

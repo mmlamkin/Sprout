@@ -27,7 +27,7 @@ class Garden extends Component {
        this.setState({plants: response.data.plants, garden_id: response.data.garden_id})
      })
      .catch((error) => {
-       alert(error.errors)
+       alert("Could not load your Garden!")
      });
 
    }
@@ -42,6 +42,12 @@ class Garden extends Component {
     this.setState({
       results: [] });
     }
+
+    refresh(plant) {
+      console.log("DFISEUHIABFLISHFLISE");
+        let newPlants = this.state.plants << plant
+         this.setState({plants: newPlants })
+      }
 
     renderHeader() {
       <View>
@@ -84,19 +90,19 @@ class Garden extends Component {
        <Header
 
        centerComponent={this.renderHeader()}
-       outerContainerStyles={{backgroundColor: '#8b81f1', top: 50, height: 70, position: 'absolute'}}
+       outerContainerStyles={{backgroundColor: '#8b81f1', top: 50, height: 70, position: 'absolute', width: 100 + "%"}}
        />
          <SearchBar
            ref={(ref) => this.searchBar = ref}
            data={this.state.plants}
            handleResults={this._handleResults}
            onClear={this._handleClear}
-
          />
 
          <List
            showPlant={this.showPlant} plants={this.state.results}
            garden={true}
+           refreshPage={this.refresh}
          />
 
          <Button title='Clear Garden'
@@ -126,6 +132,7 @@ class Garden extends Component {
          <List
            showPlant={this.showPlant} plants={this.state.plants}
            garden={true}
+           refreshPage={this.refresh}
          />
 
          <Button title='Clear Garden'
@@ -146,7 +153,8 @@ class Garden extends Component {
        <Header
 
        centerComponent={this.renderHeader()}
-       outerContainerStyles={{backgroundColor: '#8b81f1'}}
+       outerContainerStyles={{backgroundColor: '#8b81f1', width: 100 + "%"}}
+       innerContainerStyles={{backgroundColor: '#8b81f1'}}
        />
           <Text>No Plants in your Garden Yet!</Text>
           <List

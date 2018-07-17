@@ -17,6 +17,7 @@ class List extends Component {
           description={plant.description}
           showPlant={this.props.showPlant}
           garden={this.props.garden}
+          refreshPage={this.props.refreshPage}
         />
     );
   }

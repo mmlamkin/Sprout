@@ -19,6 +19,18 @@ class PlantView extends Component {
   this.getPlant()
 }
 
+optimalSoil = () => {
+  if (this.state.plant.optimal_soil) {
+     return (<Text><Image style={{height: 35,
+  width: 35}}
+  source = {config.images.plant}/> {this.state.plant.optimal_soil} soil</Text>)
+}
+  else {
+    return (<Text><Image style={{height: 35,
+  width: 35}}
+  source = {config.images.plant}/> No special soil needs</Text>)
+}}
+
 getPlant = () => {
 
    axios.get(`http://${Config.PLANTS_API}/plants/` + this.props.navigation.getParam('single_plant_id'))
@@ -31,18 +43,12 @@ getPlant = () => {
  });
 }
 
-  optimalSoil = () => {
-    this.state.plant.optimal_soil ? <Text><Image style={{height: 35,
-    width: 35}}
-    source = {config.images.plant}/> {this.state.plant.optimal_soil} soil</Text> : <Text><Image style={{height: 35,
-    width: 35}}
-    source = {config.images.plant}/> No special soil needs</Text>
-  }
+
 
   render(){
     const loading = this.state.loading
 
-    return loading ? <Text>WAIT</Text> : this.renderPage()
+    return loading ? <Text>Loading...</Text> : this.renderPage()
 
   }
 
@@ -61,10 +67,7 @@ getPlant = () => {
           <Text><Image style={{height: 35,
             width: 35}}
             source = {config.images.sun}/> {this.state.plant.optimal_sun}</Text>
-            <Text><Image style={{height: 35,
-            width: 35}}
-            source = {config.images.plant}/>  {this.state.plant.optimal_soil} soil</Text>
-
+          {this.optimalSoil()}
         </View>
         <Text>{this.state.plant.description}</Text>
 

@@ -44,7 +44,7 @@ static navigationOptions = {
        this.setState({plants: response.data})
      })
      .catch((error) => {
-       alert(error.errors)
+       alert("Could not load plants!")
      });
 
    }
