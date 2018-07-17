@@ -1,9 +1,8 @@
 import React, {Component} from 'react'
 import { View, Text, Button, Image, TextInput, StyleSheet } from 'react-native';
 import config from "../../config";
-import axios from 'axios';
 import Config from '../../../env';
-
+import Expo from 'expo';
 
 
 class Login extends Component {
@@ -15,17 +14,29 @@ class Login extends Component {
   }
 }
 
-  login() {
-    // axios.get(`http://${Config.PLANTS_API}/auth/google_oauth2`)
-    //  .then((response) => {
-       this.props.navigation.navigate('main')
-     // })
-     // .catch((error) => {
-     //   alert(error.errors)
-     //   console.log(error);
-     // });
+async signInWithGoogleAsync() {
+    try {
+      const result =  await Expo.Google.logInAsync({
+        androidClientId: Config.ANDROID_ID,
+        webClientID: "1043949308092-9j6l6jel104sn5efesna11ruqgfq3pvq.apps.googleusercontent.com",
+        scopes: ['profile', 'email'],
+      });
 
+      if (result.type === 'success') {
+        alert("success");
+        this.props.navigation.navigate('main');
+        return result.accessToken;
 
+      } else {
+        alert("fails");
+
+        this.props.navigation.navigate('main');
+        return {cancelled: true};
+      }
+    } catch(e) {
+      this.props.navigation.navigate('main');
+      return {error: true};
+    }
   }
 
   render(){
@@ -39,20 +50,15 @@ class Login extends Component {
         width: 175}}
         source = {config.images.sproutBig}/>
       <Text style={{fontSize: 25, marginVertical: 10}}>Sprout</Text>
-      <TextInput onChangeText={(text) =>   this.setState({text: text,
-      disabled: false})
-      }
-        value={this.state.text}
-        />
+
       <Button
-      title="Login"
-      // disabled={this.state.disabled}
+      title="Sign In with Google"
       onPress={() =>
-       this.login()
+       this.signInWithGoogleAsync()
       }
       buttonStyle={{
 
-        width: 300,
+        width: 400,
         height: 45,
         borderColor: "transparent",
         borderWidth: 0,
