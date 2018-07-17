@@ -64,9 +64,14 @@ buttonTitle= () => {
 
     return (
       <View style={styles.plantContainer}>
-          <TouchableOpacity onPress={() =>
-           this.props.showPlant(this.props.plant_id)
-          }><Image style={styles.imageStyle} source={{uri: "https:" + this.props.image}} /></TouchableOpacity>
+        <View style={{width: 40 + "%", height: 130,marginLeft: 10,
+        marginRight: 10,
+        marginBottom: 10,
+        marginTop: 10}}>
+            <TouchableOpacity onPress={() =>
+              this.props.showPlant(this.props.plant_id)
+            }><Image style={styles.imageStyle} source={{uri: "https:" + this.props.image}} /></TouchableOpacity>
+        </View>
         <View style={styles.summaryContainer}>
           <Text style={{alignSelf: "center"}}>{this.props.name}</Text>
           <Text numberOfLines={4} style={{fontSize: 12}}>{this.props.description}</Text>
@@ -93,12 +98,9 @@ export default Plant;
 const styles = StyleSheet.create({
 
   imageStyle: {
-  width: 40 + "%",
+  width: 100 + "%",
   height: 130,
-  marginLeft: 10,
-  marginRight: 10,
-  marginBottom: 10,
-  marginTop: 10,
+
 },
 plantContainer: {
   width: 100 + "%",

@@ -45,6 +45,7 @@ static navigationOptions = {
      })
      .catch((error) => {
        alert("Could not load plants!")
+       console.log(error);
      });
 
    }
