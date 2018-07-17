@@ -14,25 +14,30 @@ class Login extends Component {
   }
 }
 
-signInWithGoogleAsync() {
+async signInWithGoogleAsync() {
     try {
-      const result =  Expo.Google.logInAsync({
+      const result =  await Expo.Google.logInAsync({
         androidClientId: Config.ANDROID_ID,
+        webClientID: "1043949308092-9j6l6jel104sn5efesna11ruqgfq3pvq.apps.googleusercontent.com",
         scopes: ['profile', 'email'],
       });
 
       if (result.type === 'success') {
+        alert("success");
+        this.props.navigation.navigate('main');
         return result.accessToken;
 
       } else {
+        alert("fails");
+
+        this.props.navigation.navigate('main');
         return {cancelled: true};
       }
     } catch(e) {
+      this.props.navigation.navigate('main');
       return {error: true};
     }
   }
-
-
 
   render(){
 

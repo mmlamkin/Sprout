@@ -29,7 +29,7 @@ buttonTitle= () => {
     return (<Button title='Delete'
   containerStyle={{fontSize: 2, marginTop: 20}}
   buttonStyle={styles.button}
-  textStyle={{fontSize: 13}}
+  textStyle={{fontSize: 12}}
   onPress={() =>
    this.delFromGarden()
  }/>)
