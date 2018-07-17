@@ -33,7 +33,7 @@ class List extends Component {
       data={this.props.plants}
       keyExtractor={this._returnKey}
       renderItem={this._renderPlants}
-      style={{marginTop: 60}}
+      style={{marginTop: this.props.garden ? 0 : 60}}
       />
     );
   }

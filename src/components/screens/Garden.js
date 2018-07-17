@@ -32,7 +32,8 @@ class Garden extends Component {
 
    }
 
-   showPlant = (single_plant_id) => this.props.navigation.navigate('PlantView', {single_plant_id: single_plant_id})
+   showPlant = (single_plant_id) => {
+     this.props.navigation.navigate('PlantView', {single_plant_id: single_plant_id})}
 
    _handleResults(results) {
      this.setState({ results });
@@ -43,18 +44,11 @@ class Garden extends Component {
       results: [] });
     }
 
-    refresh(plant) {
-      console.log("DFISEUHIABFLISHFLISE");
-        let newPlants = this.state.plants << plant
-         this.setState({plants: newPlants })
-      }
 
     renderHeader() {
-      <View>
-      <Image style={{height: 30,
-        width: 30}}
-        source = {config.images.sproutLittle}/><Text style={{fontSize: 24, fontWeight: 'bold', paddingLeft: 8, color: '#fff'}}>Sprout</Text>
-        </View>
+
+      <Text style={{fontSize: 24, fontWeight: 'bold', paddingLeft: 8, color: '#fff'}}>Sprout</Text>
+
       }
 
     clearGarden() {
@@ -88,7 +82,6 @@ class Garden extends Component {
      return(
        <View style={{flex: 1, width: 100 + "%", height: 100 + "%", backgroundColor: 'white'}}>
        <Header
-
        centerComponent={this.renderHeader()}
        outerContainerStyles={{backgroundColor: '#8b81f1', top: 50, height: 70, position: 'absolute', width: 100 + "%"}}
        />
@@ -102,7 +95,7 @@ class Garden extends Component {
          <List
            showPlant={this.showPlant} plants={this.state.results}
            garden={true}
-           refreshPage={this.refresh}
+
          />
 
          <Button title='Clear Garden'
@@ -119,8 +112,9 @@ class Garden extends Component {
      return(
        <View style={{flex: 1, width: 100 + "%", height: 100 + "%", backgroundColor: 'white'}}>
         <Header
-          centerComponent={this.renderHeader()}
-          outerContainerStyles={{backgroundColor: '#8b81f1'}}
+          centerComponent={ this.renderHeader() }
+          outerContainerStyles={{backgroundColor: '#8b81f1', marginTop: 70}}
+          innerContainerStyles={{backgroundColor: '#8b81f1'}}
         />
          <SearchBar
            ref={(ref) => this.searchBar = ref}
@@ -132,7 +126,6 @@ class Garden extends Component {
          <List
            showPlant={this.showPlant} plants={this.state.plants}
            garden={true}
-           refreshPage={this.refresh}
          />
 
          <Button title='Clear Garden'

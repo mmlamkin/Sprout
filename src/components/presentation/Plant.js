@@ -40,7 +40,6 @@ buttonTitle= () => {
     axios.patch(url)
     .then(function (response) {
       alert('Plant added to garden')
-      this.props.refreshPage(response.data.plant)
     })
     .catch(function (error) {
       alert(error.errors + "add to garden error")
@@ -52,7 +51,6 @@ buttonTitle= () => {
     axios.delete(url)
     .then(function (response) {
       alert('Plant removed from garden')
-      this.props.refreshPage()
     })
     .catch(function (error) {
       alert(error.errors + 'delete from garden error')
