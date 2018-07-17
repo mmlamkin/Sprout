@@ -65,7 +65,7 @@ class Garden extends Component {
         this.setState({plants: response.data.plants})
       })
       .catch(function (error) {
-        alert(error.errors)
+        alert(error.errors + "clear garden error")
       });
     }
 

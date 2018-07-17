@@ -5,7 +5,6 @@ import Config from '../../../env';
 import axios from 'axios';
 
 
-
 class Plant extends Component {
 
   constructor() {
@@ -44,7 +43,7 @@ buttonTitle= () => {
       this.props.refreshPage(response.data.plant)
     })
     .catch(function (error) {
-      alert(error.errors)
+      alert(error.errors + "add to garden error")
     });
   }
 
@@ -56,7 +55,7 @@ buttonTitle= () => {
       this.props.refreshPage()
     })
     .catch(function (error) {
-      alert(error.errors)
+      alert(error.errors + 'delete from garden error')
     });
   }
 

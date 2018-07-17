@@ -39,11 +39,9 @@ getPlant = () => {
    this.setState({plant: response.data, loading: false})
  })
  .catch((error) => {
-   alert(error.errors)
+   alert(error.errors + "get plant errors")
  });
 }
-
-
 
   render(){
     const loading = this.state.loading
