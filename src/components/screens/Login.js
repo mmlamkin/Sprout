@@ -1,9 +1,8 @@
 import React, {Component} from 'react'
 import { View, Text, Button, Image, TextInput, StyleSheet } from 'react-native';
 import config from "../../config";
-import axios from 'axios';
 import Config from '../../../env';
-
+import Expo from 'expo';
 
 
 class Login extends Component {
@@ -15,18 +14,25 @@ class Login extends Component {
   }
 }
 
-  login() {
-    // axios.get(`http://${Config.PLANTS_API}/auth/google_oauth2`)
-    //  .then((response) => {
-       this.props.navigation.navigate('main')
-     // })
-     // .catch((error) => {
-     //   alert(error.errors)
-     //   console.log(error);
-     // });
+signInWithGoogleAsync() {
+    try {
+      const result =  Expo.Google.logInAsync({
+        androidClientId: Config.ANDROID_ID,
+        scopes: ['profile', 'email'],
+      });
 
+      if (result.type === 'success') {
+        return result.accessToken;
 
+      } else {
+        return {cancelled: true};
+      }
+    } catch(e) {
+      return {error: true};
+    }
   }
+
+
 
   render(){
 
@@ -39,20 +45,15 @@ class Login extends Component {
         width: 175}}
         source = {config.images.sproutBig}/>
       <Text style={{fontSize: 25, marginVertical: 10}}>Sprout</Text>
-      <TextInput onChangeText={(text) =>   this.setState({text: text,
-      disabled: false})
-      }
-        value={this.state.text}
-        />
+
       <Button
-      title="Login"
-      // disabled={this.state.disabled}
+      title="Sign In with Google"
       onPress={() =>
-       this.login()
+       this.signInWithGoogleAsync()
       }
       buttonStyle={{
 
-        width: 300,
+        width: 400,
         height: 45,
         borderColor: "transparent",
         borderWidth: 0,
