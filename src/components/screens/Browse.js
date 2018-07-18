@@ -7,6 +7,7 @@ import PlantView from './PlantView';
 import Config from '../../../env';
 import config from "../../config";
 import SearchBar from 'react-native-searchbar';
+import { Expo, Constants, Calendar, Permissions} from 'expo';
 
 
 class BrowseView extends Component {
@@ -14,7 +15,8 @@ class BrowseView extends Component {
   super()
   this.state = {
     plants: [],
-    results: []
+    results: [],
+    events: []
   }
    this._handleResults = this._handleResults.bind(this);
 }
@@ -26,20 +28,21 @@ static navigationOptions = {
         width: 30}}
         source = {config.images.sproutLittle}/><Text style={{fontSize: 24, fontWeight: 'bold', paddingLeft: 8, color: '#fff'}}>Sprout</Text>
         </View>
- ),
-    headerStyle: {
-      backgroundColor: "#8b81f1",
-      maxHeight: 90
-    },
-    headerTintColor: '#fff',
+      ),
+      headerStyle: {
+        backgroundColor: "#8b81f1",
+        maxHeight: 90
+      },
+      headerTintColor: '#fff',
 
-    headerTitleStyle: {
-      fontWeight: 'bold',
-      textAlign: "center"
-    },
+      headerTitleStyle: {
+        fontWeight: 'bold',
+        textAlign: "center"
+      },
   };
 
   componentDidMount() {
+    this.accessCalendars()
     axios.get(`http://${Config.PLANTS_API}/plants`)
 
      .then((response) => {
@@ -49,7 +52,33 @@ static navigationOptions = {
        alert("Could not load plants!")
        console.log(error);
      });
+   }
 
+   async accessCalendars() {
+
+     const { status } = await Permissions.askAsync(Permissions.CALENDAR);
+     if (status === 'granted') {
+       return this.allCalendars();}
+      else {
+        console.log();('permission not granted');
+      }
+    }
+
+   allCalendars() {
+     let details = {
+       title: 'myCalendar',
+       color: 'blue',
+       entityType: Calendar.EntityTypes.REMINDER,
+       sourceId: 'my_calendar_1'
+     };
+
+     Calendar.getCalendarsAsync()
+       .then( event => {
+         console.log(event);
+       })
+       .catch( error => {
+         console.log(("error"));
+       });
    }
 
     _handleResults(results) {

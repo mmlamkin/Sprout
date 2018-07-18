@@ -7,6 +7,7 @@ import axios from 'axios';
 import globalState from '../../GlobalState';
 
 
+
 class Login extends Component {
   constructor() {
   super()
@@ -32,7 +33,7 @@ class Login extends Component {
       const result =  await Expo.Google.logInAsync({
         androidClientId: Config.ANDROID_ID,
         webClientID: Config.WEBCLIENTID,
-        scopes: ['profile', 'email'],
+        scopes: ['profile', 'email', 'https://www.googleapis.com/auth/calendar'],
       });
       if (result.type === 'success') {
         const user_id = await this.getUser(result.user.email)
@@ -42,7 +43,6 @@ class Login extends Component {
         globalState.current_user_id = this.state.user_id
 
         alert("success");
-        console.log(this.state.user_id);
         this.props.navigation.navigate('main');
 
         return result.accessToken;

@@ -6,6 +6,7 @@ import axios from 'axios';
 import Config from '../../../env';
 import SearchBar from 'react-native-searchbar';
 import globalState from '../../GlobalState';
+// import HeaderImage from '../presentation';
 
 
 class Garden extends Component {
@@ -30,20 +31,19 @@ class Garden extends Component {
 
    }
 
-   showPlant = (single_plant_id) => {
-     this.props.navigation.navigate('PlantView', {single_plant_id: single_plant_id})}
+    showPlant = (single_plant_id) => {
+      this.props.navigation.navigate('PlantView', {single_plant_id: single_plant_id})}
 
-   _handleResults(results) {
-     this.setState({ results });
-   }
+    _handleResults(results) {
+        this.setState({ results });
+    }
 
-  _handleClear() {
-    this.setState({
-      results: [] });
+    _handleClear() {
+      this.setState({
+        results: [] });
     }
 
     removePlant = (plant_id) => {
-      console.log(this.state.plants.first);
       const newPlants = this.state.plants.filter(plant => plant.id !== plant_id)
       this.setState({plants: newPlants})
     }
@@ -53,28 +53,27 @@ class Garden extends Component {
       this.setState({plants: newPlants})
     }
 
-    renderHeader() {
-
-      <Text style={{fontSize: 24, fontWeight: 'bold', paddingLeft: 8, color: '#fff'}}>Sprout</Text>
-
-      }
 
     clearGarden() {
       const url = `http://${Config.PLANTS_API}/users/${globalState.current_user_id}/gardens/` + this.state.garden_id
       axios.delete(url)
-      .then(function (response) {
+      .then((response) => {
         alert('Garden Cleared')
         this.setState({plants: response.data.plants})
       })
-      .catch(function (error) {
+      .catch((error) => {
         alert(error.errors + "clear garden error")
       });
     }
 
     render(){
       const gardenPlants = this.state.plants
-
-      return gardenPlants.length > 0 ? this.renderPlants() : this.renderNone()
+      if (gardenPlants) {
+        return this.renderPlants()
+      }
+      else {
+        return this.renderNone()
+      }
 
     }
 
@@ -89,7 +88,7 @@ class Garden extends Component {
      return(
        <View style={{flex: 1, width: 100 + "%", height: 100 + "%", backgroundColor: 'white'}}>
        <Header
-       centerComponent={this.renderHeader()}
+       // centerComponent={<HeaderImage />}
        outerContainerStyles={{backgroundColor: '#8b81f1', top: 50, height: 70, position: 'absolute', width: 100 + "%"}}
        />
          <SearchBar
@@ -120,7 +119,7 @@ class Garden extends Component {
      return(
        <View style={{flex: 1, width: 100 + "%", height: 100 + "%", backgroundColor: 'white'}}>
         <Header
-          centerComponent={ this.renderHeader() }
+          // centerComponent={<HeaderImage />}
           outerContainerStyles={{backgroundColor: '#8b81f1', marginTop: 70}}
           innerContainerStyles={{backgroundColor: '#8b81f1'}}
         />
@@ -154,8 +153,7 @@ class Garden extends Component {
      return(
        <View style={{flex: 1, width: 100 + "%", height: 100 + "%", backgroundColor: 'white', justifyContent: "center", alignItems: "center"}}>
        <Header
-
-       centerComponent={this.renderHeader()}
+       // centerComponent={<HeaderImage />}
        outerContainerStyles={{backgroundColor: '#8b81f1', width: 100 + "%"}}
        innerContainerStyles={{backgroundColor: '#8b81f1'}}
        />
