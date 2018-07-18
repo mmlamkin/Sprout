@@ -16,9 +16,11 @@ class BrowseView extends Component {
   this.state = {
     plants: [],
     results: [],
-    events: []
+    events: [],
+    calendar_id: ''
   }
    this._handleResults = this._handleResults.bind(this);
+   this.accessCalendars = this.accessCalendars.bind(this);
 }
 
 static navigationOptions = {
@@ -58,26 +60,29 @@ static navigationOptions = {
 
      const { status } = await Permissions.askAsync(Permissions.CALENDAR);
      if (status === 'granted') {
-       return this.allCalendars();}
+       this.allCalendars();}
       else {
         console.log();('permission not granted');
       }
     }
 
-   allCalendars() {
-     let details = {
-       title: 'myCalendar',
-       color: 'blue',
-       entityType: Calendar.EntityTypes.REMINDER,
-       sourceId: 'my_calendar_1'
-     };
+   allCalendars = () => {
 
      Calendar.getCalendarsAsync()
        .then( event => {
          console.log(event);
+         let my_id = 0
+         event.forEach(function (calendar) {
+           console.log(calendar.accessLevel);
+          if(calendar.accessLevel == "owner") {
+            my_id = calendar.id
+          }
+        })
+        this.setState({calendar_id: my_id})
+        console.log(this.state.calendar_id);
        })
        .catch( error => {
-         console.log(("error"));
+         console.log((error));
        });
    }
 
