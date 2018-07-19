@@ -99,8 +99,8 @@ static navigationOptions = {
      if (early_dates) {
        let early_date1 = Date.parse(`${early_dates.split('-')[0]} ${year} 12:00`)
        let early_date2 = Date.parse(`${early_dates.split('-')[1]} ${year} 12:00`)
-       // late_date1 = late_dates.split('-')[0]
-       // late_date2 = late_dates.split('-')[1]
+       // let late_date1 = Date.parse(`${late_dates.split('-')[0]} ${year} 12:00`)
+       // let late_date2 = Date.parse(`${late_dates.split('-')[1]} ${year} 12:00`)
 
        if (early_date1 > today) {
          startdate = early_date1
@@ -113,7 +113,6 @@ static navigationOptions = {
          startNotes = `The time has come to plant the ${name} in your garden!`
        }
      }
-
 
      let plantingDetails = {
        title: `Plant your ${name}!`,

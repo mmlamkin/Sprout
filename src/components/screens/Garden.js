@@ -21,7 +21,7 @@ class Garden extends Component {
 }
 
   componentDidMount() {
-
+    this.makeWateringSchedule()
     axios.get(`http://${Config.PLANTS_API}/users/${globalState.current_user_id}/gardens`)
      .then((response) => {
        this.setState({plants: response.data.plants, garden_id: response.data.garden_id})
@@ -55,7 +55,7 @@ class Garden extends Component {
     }
 
 
-    clearGarden() {
+    clearGarden=() => {
       const url = `http://${Config.PLANTS_API}/users/${globalState.current_user_id}/gardens/` + this.state.garden_id
       axios.delete(url)
       .then((response) => {
@@ -67,64 +67,27 @@ class Garden extends Component {
       });
     }
 
-    // addToCalendar = (name, early_dates, late_dates) => {
-    //   alert("ADD TO CALENDAR GARDEN");
-    //   let plantingDetails = {
-    //     title: `Plant your ${name}!`,
-    //     startDate: new Date('July 20, 2018, 12:00:00'),
-    //     endDate: new Date('July 20, 2018, 13:00:00'),
-    //     timeZone: 'PST',
-    //     notes: `Time to think about planting the ${name} in your garden!`
-    //   }
-    //
-    //   Calendar.createEventAsync(globalState.calendar_id, plantingDetails)
-    //     .then( event => {
-    //       // console.log(globalState.calendar_id)
-    //       // console.log(event);
-    //     })
-    //     .catch( error => {
-    //       alert('create calendar error');
-    //     });
-    // }
-
-    createWateringSchedule = () => {
+    makeWateringSchedule = () => {
 
       let waterDetails = {
         title: 'WATER!!',
-        startDate: new Date('July 19, 2018, 12:00:00'),
-        endDate: new Date('July 19, 2018, 13:00:00'),
+        startDate: Date.parse('July 20, 2018, 11:00:00'),
+        endDate: Date.parse('July 22, 2018, 13:00:00'),
         timeZone: 'PST',
+        recurrenceRole: 'daily',
         notes: 'Remember to water this week! 2-3 days of DEEP watering--AKA water until the soil is wet about an inch deep'
         }
 
-        let event_id = ''
 
       Calendar.createEventAsync(globalState.calendar_id, waterDetails)
         .then( event => {
-          console.log(globalState.calendar_id);
-          event_id = event.toString()
+          console.log("get watering!");
 
         })
         .catch( error => {
           console.log((error));
         });
 
-        // Calendar.updateEventAsync(event_id, details, recurringEventOptions)
-        //
-        // .then( event => {
-        //   console.log(event);
-        //   let my_id = 0
-        //   event.forEach(function(calendar) {
-        //     console.log(calendar.accessLevel);
-        //    if(calendar.accessLevel == "owner") {
-        //      my_id = calendar.id
-        //    }
-        //  })
-        //  globalState.calendar_id = my_id
-        // })
-        // .catch( error => {
-        //   console.log((error));
-        // });
     }
 
 
@@ -169,6 +132,13 @@ class Garden extends Component {
            addToCalendar={this.props.addToCalendar}
          />
 
+         <Button title='Make Watering Schedule'
+       containerStyle={{fontSize: 2, marginTop: 20}}
+       buttonStyle={styles.button}
+       onPress={() =>
+        this.makeWateringSchedule()
+      }/>
+
          <Button title='Clear Garden'
        containerStyle={{fontSize: 2, marginTop: 20}}
        buttonStyle={styles.button}
@@ -201,6 +171,13 @@ class Garden extends Component {
            addPlant={this.addPlant}
            addToCalendar={this.props.addToCalendar}
          />
+
+         <Button title='Make Watering Schedule'
+       containerStyle={{fontSize: 2, marginTop: 20}}
+       buttonStyle={styles.button}
+       onPress={() =>
+        this.makeWateringSchedule()
+      }/>
 
          <Button title='Clear Garden'
        containerStyle={{fontSize: 2, marginTop: 20}}
