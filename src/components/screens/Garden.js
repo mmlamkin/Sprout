@@ -6,7 +6,8 @@ import axios from 'axios';
 import Config from '../../../env';
 import SearchBar from 'react-native-searchbar';
 import globalState from '../../GlobalState';
-// import HeaderImage from '../presentation';
+import HeaderImage from '../presentation';
+import { Expo, Constants, Calendar, Permissions} from 'expo';
 
 
 class Garden extends Component {
@@ -14,13 +15,15 @@ class Garden extends Component {
   super()
   this.state = {
     plants: [],
-    results: [],
-    garden_id: 0
+    results: []
   }
   this._handleResults = this._handleResults.bind(this);
 }
 
   componentDidMount() {
+
+    this.createWateringSchedule()
+
     axios.get(`http://${Config.PLANTS_API}/users/${globalState.current_user_id}/gardens`)
      .then((response) => {
        this.setState({plants: response.data.plants, garden_id: response.data.garden_id})
@@ -65,6 +68,47 @@ class Garden extends Component {
         alert(error.errors + "clear garden error")
       });
     }
+
+    createWateringSchedule = () => {
+
+      let details = {
+        title: 'WATER!!',
+        startDate: new Date('July 19, 2018, 12:00:00'),
+        endDate: new Date('July 19, 2018, 13:00:00'),
+        timeZone: 'PST',
+        notes: 'Remember to water this week! 2-3 days of DEEP watering--AKA water until the soil is wet about an inch deep'
+        }
+
+        let event_id = ''
+
+      Calendar.createEventAsync(globalState.calendar_id, details)
+        .then( event => {
+          console.log(globalState.calendar_id);
+          event_id = event.toString()
+
+        })
+        .catch( error => {
+          console.log((error));
+        });
+
+        // Calendar.updateEventAsync(event_id, details, recurringEventOptions)
+        //
+        // .then( event => {
+        //   console.log(event);
+        //   let my_id = 0
+        //   event.forEach(function(calendar) {
+        //     console.log(calendar.accessLevel);
+        //    if(calendar.accessLevel == "owner") {
+        //      my_id = calendar.id
+        //    }
+        //  })
+        //  globalState.calendar_id = my_id
+        // })
+        // .catch( error => {
+        //   console.log((error));
+        // });
+    }
+
 
     render(){
       const gardenPlants = this.state.plants

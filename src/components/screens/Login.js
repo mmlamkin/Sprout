@@ -33,7 +33,7 @@ class Login extends Component {
       const result =  await Expo.Google.logInAsync({
         androidClientId: Config.ANDROID_ID,
         webClientID: Config.WEBCLIENTID,
-        scopes: ['profile', 'email', 'https://www.googleapis.com/auth/calendar'],
+        scopes: ['profile', 'email'],
       });
       if (result.type === 'success') {
         const user_id = await this.getUser(result.user.email)
@@ -52,9 +52,9 @@ class Login extends Component {
         return {cancelled: true};
       }
     } catch(e) {
+        console.log(e);
       alert("Could not complete Login");
       return {error: true};
-      console.log(err);
     }
   }
 

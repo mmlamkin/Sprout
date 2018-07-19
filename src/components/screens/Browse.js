@@ -7,6 +7,7 @@ import PlantView from './PlantView';
 import Config from '../../../env';
 import config from "../../config";
 import SearchBar from 'react-native-searchbar';
+import globalState from '../../GlobalState';
 import { Expo, Constants, Calendar, Permissions} from 'expo';
 
 
@@ -16,8 +17,7 @@ class BrowseView extends Component {
   this.state = {
     plants: [],
     results: [],
-    events: [],
-    calendar_id: ''
+    events: []
   }
    this._handleResults = this._handleResults.bind(this);
    this.accessCalendars = this.accessCalendars.bind(this);
@@ -72,14 +72,13 @@ static navigationOptions = {
        .then( event => {
          console.log(event);
          let my_id = 0
-         event.forEach(function (calendar) {
-           console.log(calendar.accessLevel);
+         event.forEach(function(calendar) {
+           console.log(calendar);
           if(calendar.accessLevel == "owner") {
             my_id = calendar.id
           }
         })
-        this.setState({calendar_id: my_id})
-        console.log(this.state.calendar_id);
+        globalState.calendar_id = my_id
        })
        .catch( error => {
          console.log((error));
