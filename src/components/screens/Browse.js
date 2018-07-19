@@ -95,7 +95,7 @@ static navigationOptions = {
      let startdate = Date.parse(`april 1 ${nextYear} 12:00`)
      let enddate = Date.parse(`april 1 ${nextYear} 1:00`)
      let startNotes = `Time to think about planting the ${name} in your garden!`
-     // console.log(Date.prototype.toDateString(startdate));
+
      if (early_dates) {
        let early_date1 = Date.parse(`${early_dates.split('-')[0]} ${year} 12:00`)
        let early_date2 = Date.parse(`${early_dates.split('-')[1]} ${year} 12:00`)
@@ -113,13 +113,6 @@ static navigationOptions = {
          startNotes = `The time has come to plant the ${name} in your garden!`
        }
      }
-     // else {
-     //   if (today < new Date(`${year} april 1 12:00`)) {
-     //     let nextYear = (year.parseInt() + 1).toString()
-     //     let startdate = new Date(`${nextYear} april 1 12:00`)
-     //     let enddate = new Date(`${nextYear} april 1 12:00`).addHours(1)
-     //     let startNotes = `Time to think about planting the ${name} in your garden!`
-     //   }
 
 
      let plantingDetails = {
@@ -129,7 +122,7 @@ static navigationOptions = {
        timeZone: 'PST',
        notes: startNotes
      }
-     console.log(plantingDetails);
+
      Calendar.createEventAsync(globalState.calendar_id, plantingDetails)
        .then( event => {
         alert('added to calendar')
