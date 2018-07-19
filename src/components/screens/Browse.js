@@ -85,6 +85,25 @@ static navigationOptions = {
        });
    }
 
+   addToCalendar = (name, early_dates, late_dates) => {
+     alert("ADD TO CALENDAR BROWSE");
+     let plantingDetails = {
+       title: `Plant your ${name}!`,
+       startDate: new Date('July 19, 2018, 12:00:00'),
+       endDate: new Date('July 19, 2018, 13:00:00'),
+       timeZone: 'PST',
+       notes: `Time to think about planting the ${name} in your garden!`
+     }
+
+     Calendar.createEventAsync(globalState.calendar_id, plantingDetails)
+       .then( event => {
+        alert('added to calendar')
+       })
+       .catch( error => {
+         console.log((error));
+       });
+   }
+
     _handleResults(results) {
       this.setState({ results });
     }
@@ -136,6 +155,7 @@ static navigationOptions = {
         <List
           showPlant={this.showPlant} plants={this.state.plants}
           garden={false}
+          addToCalendar={this.addToCalendar}
         />
         </View>
 

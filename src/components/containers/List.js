@@ -15,10 +15,13 @@ class List extends Component {
           name={plant.name}
           image={plant.image}
           description={plant.description}
+          early_dates={plant.early_harvest}
+          late_dates={plant.late_harvest}
           showPlant={this.props.showPlant}
           garden={this.props.garden}
           removePlant={this.props.removePlant}
           addPlant={this.props.addPlant}
+          addToCalendar={this.props.addToCalendar}
         />
     );
   }

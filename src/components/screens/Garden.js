@@ -22,8 +22,6 @@ class Garden extends Component {
 
   componentDidMount() {
 
-    this.createWateringSchedule()
-
     axios.get(`http://${Config.PLANTS_API}/users/${globalState.current_user_id}/gardens`)
      .then((response) => {
        this.setState({plants: response.data.plants, garden_id: response.data.garden_id})
@@ -69,9 +67,29 @@ class Garden extends Component {
       });
     }
 
+    // addToCalendar = (name, early_dates, late_dates) => {
+    //   alert("ADD TO CALENDAR GARDEN");
+    //   let plantingDetails = {
+    //     title: `Plant your ${name}!`,
+    //     startDate: new Date('July 20, 2018, 12:00:00'),
+    //     endDate: new Date('July 20, 2018, 13:00:00'),
+    //     timeZone: 'PST',
+    //     notes: `Time to think about planting the ${name} in your garden!`
+    //   }
+    //
+    //   Calendar.createEventAsync(globalState.calendar_id, plantingDetails)
+    //     .then( event => {
+    //       // console.log(globalState.calendar_id)
+    //       // console.log(event);
+    //     })
+    //     .catch( error => {
+    //       alert('create calendar error');
+    //     });
+    // }
+
     createWateringSchedule = () => {
 
-      let details = {
+      let waterDetails = {
         title: 'WATER!!',
         startDate: new Date('July 19, 2018, 12:00:00'),
         endDate: new Date('July 19, 2018, 13:00:00'),
@@ -81,7 +99,7 @@ class Garden extends Component {
 
         let event_id = ''
 
-      Calendar.createEventAsync(globalState.calendar_id, details)
+      Calendar.createEventAsync(globalState.calendar_id, waterDetails)
         .then( event => {
           console.log(globalState.calendar_id);
           event_id = event.toString()
@@ -108,6 +126,7 @@ class Garden extends Component {
         //   console.log((error));
         // });
     }
+
 
 
     render(){
@@ -147,6 +166,7 @@ class Garden extends Component {
            garden={true}
            removePlant={this.removePlant}
            addPlant={this.addPlant}
+           addToCalendar={this.props.addToCalendar}
          />
 
          <Button title='Clear Garden'
@@ -179,6 +199,7 @@ class Garden extends Component {
            garden={true}
            removePlant={this.removePlant}
            addPlant={this.addPlant}
+           addToCalendar={this.props.addToCalendar}
          />
 
          <Button title='Clear Garden'

@@ -28,16 +28,16 @@ buttonTitle= () => {
   }
 }
 
-  addToGarden() {
+  async addToGarden() {
     const url = `http://${Config.PLANTS_API}/users/${globalState.current_user_id}/plants/` + this.props.plant_id
-    axios.patch(url)
-    .then((response) => {
+    await axios.patch(url)
       alert('Plant added to garden')
-      this.props.addPlant(this.props.plant)
-    })
-    .catch((error) => {
-      alert(JSON.stringify(error.errors))
-    });
+      // this.props.addPlant(this.props.plant)
+      this.props.addToCalendar(this.props.name, this.props.early_dates, this.props.late_dates)
+    // })
+    // .catch((error) => {
+    //   alert('add to garden error')
+    // });
   }
 
   delFromGarden() {
