@@ -65,7 +65,7 @@ buttonTitle= () => {
             }><Image style={styles.imageStyle} source={{uri: "https:" + this.props.image}} /></TouchableOpacity>
         </View>
         <View style={styles.summaryContainer}>
-          <Text style={{alignSelf: "center"}}>{this.props.name}</Text>
+          <Text style={{alignSelf: "center", fontWeight: 'bold', fontSize: 14}}>{this.props.name}</Text>
           <Text numberOfLines={4} style={{fontSize: 12}}>{this.props.description}</Text>
           <View style={{flexDirection: 'row', justifyContent: "space-between", marginTop: 4}}>
           <Button title='More'

@@ -158,6 +158,7 @@ static navigationOptions = {
           handleResults={this._handleResults}
           onClear={this._handleClear}
           showOnLoad
+          heightAdjust={-2}
         />
 
         <List
