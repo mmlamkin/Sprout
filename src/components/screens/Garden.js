@@ -66,33 +66,6 @@ class Garden extends Component {
       });
     }
 
-    makeWateringSchedule = () => {
-
-      let waterDetails = {
-        title: 'WATER!!',
-        startDate: Date.parse('July 20, 2018, 09:00:00'),
-        endDate: Date.parse('July 20, 2018, 10:00:00'),
-        timeZone: 'PST',
-        recurrenceRule: {
-          frequency: 'weekly',
-          interval: 1,
-          byDay: 'sunday',
-          until: '20180806T070000Z'
-        },
-        notes: 'Remember to water this week! 2-3 days of DEEP watering--AKA water until the soil is wet about an inch deep'
-        }
-
-
-      Calendar.createEventAsync(globalState.calendar_id, waterDetails)
-        .then( event => {
-          console.log("get watering!");
-
-        })
-        .catch( error => {
-          console.log((error));
-        });
-    }
-
 
 
     render(){
