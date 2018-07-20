@@ -21,7 +21,6 @@ class Garden extends Component {
 }
 
   componentDidMount() {
-    this.makeWateringSchedule()
     axios.get(`http://${Config.PLANTS_API}/users/${globalState.current_user_id}/gardens`)
      .then((response) => {
        this.setState({plants: response.data.plants, garden_id: response.data.garden_id})
@@ -55,7 +54,7 @@ class Garden extends Component {
     }
 
 
-    clearGarden=() => {
+    clearGarden = () => {
       const url = `http://${Config.PLANTS_API}/users/${globalState.current_user_id}/gardens/` + this.state.garden_id
       axios.delete(url)
       .then((response) => {
@@ -71,10 +70,15 @@ class Garden extends Component {
 
       let waterDetails = {
         title: 'WATER!!',
-        startDate: Date.parse('July 20, 2018, 11:00:00'),
-        endDate: Date.parse('July 22, 2018, 13:00:00'),
+        startDate: Date.parse('July 20, 2018, 09:00:00'),
+        endDate: Date.parse('July 20, 2018, 10:00:00'),
         timeZone: 'PST',
-        recurrenceRole: 'daily',
+        recurrenceRule: {
+          frequency: 'weekly',
+          interval: 1,
+          byDay: 'sunday',
+          until: '20180806T070000Z'
+        },
         notes: 'Remember to water this week! 2-3 days of DEEP watering--AKA water until the soil is wet about an inch deep'
         }
 
@@ -87,7 +91,6 @@ class Garden extends Component {
         .catch( error => {
           console.log((error));
         });
-
     }
 
 
@@ -132,20 +135,22 @@ class Garden extends Component {
            addToCalendar={this.props.addToCalendar}
          />
 
-         <Button title='Make Watering Schedule'
-       containerStyle={{fontSize: 2, marginTop: 20}}
-       buttonStyle={styles.button}
-       onPress={() =>
-        this.makeWateringSchedule()
-      }/>
+         <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+          <Button title='Make Watering Schedule'
+            containerStyle={{fontSize: 2, marginTop: 20}}
+            buttonStyle={styles.button}
+            onPress={() =>
+              this.makeWateringSchedule()
+            }/>
 
-         <Button title='Clear Garden'
-       containerStyle={{fontSize: 2, marginTop: 20}}
-       buttonStyle={styles.button}
-       onPress={() =>
-        this.clearGarden()
-      }/>
-         </View>
+            <Button title='Clear Garden'
+            containerStyle={{fontSize: 2, marginTop: 20}}
+            buttonStyle={styles.button}
+            onPress={() =>
+              this.clearGarden()
+            }/>
+          </View>
+       </View>
 
      )
    }
