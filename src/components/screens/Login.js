@@ -42,13 +42,12 @@ class Login extends Component {
 
         globalState.current_user_id = this.state.user_id
 
-        alert("success");
         this.props.navigation.navigate('main');
 
         return result.accessToken;
 
       } else {
-        alert("Could not complete Login--result isnt success");
+        alert("Could not complete Login");
         return {cancelled: true};
       }
     } catch(e) {
