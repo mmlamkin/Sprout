@@ -5,6 +5,7 @@ import Config from '../../../env';
 import Expo from 'expo';
 import axios from 'axios';
 import globalState from '../../GlobalState';
+import {Font} from 'expo'
 
 
 
@@ -60,32 +61,31 @@ class Login extends Component {
   render(){
 
     return(
+
       <View style={styles.container}>
-      <View style={styles.border}>
-      <View style={styles.border}>
+        <View>
+          <Image style={{height: 200,
+            width: 175, marginTop: 175}}
+            source = {config.images.sproutBig}/>
+            <Text style={{fontSize: 25, marginVertical: 10, fontSize: 38, fontWeight: 'bold', alignSelf: 'center', color: '#ef7d73'}}>Sprout</Text>
 
-      <Image style={{height: 200,
-        width: 175}}
-        source = {config.images.sproutBig}/>
-      <Text style={{fontSize: 25, marginVertical: 10}}>Sprout</Text>
+            <Button
+            title="Sign In with Google"
+            onPress={() =>
+              this.signInWithGoogleAsync()
+            }
+            buttonStyle={{
 
-      <Button
-      title="Sign In with Google"
-      onPress={() =>
-       this.signInWithGoogleAsync()
-      }
-      buttonStyle={{
-
-        width: 400,
-        height: 45,
-        borderColor: "transparent",
-        borderWidth: 0,
-        borderRadius: 10
-      }}
-      />
-
-      </View>
-      </View>
+              width: 400,
+              height: 45,
+              borderColor: "transparent",
+              borderWidth: 0,
+              borderRadius: 10,
+              marginTop: 20
+            }}
+            />
+          </View>
+        <Image style={styles.container} source={{uri: 'https://images.pexels.com/photos/41324/background-close-up-flora-fresh-41324.jpeg?auto=compress&cs=tinysrgb&h=350'}} />
       </View>
     )
   }
@@ -99,7 +99,8 @@ const styles = StyleSheet.create({
     flex: 1, height: 100 + "%",
     width: 100 + "%",
     justifyContent:"center",
-    alignItems: "center"
+    alignItems: "center",
+
 
   },
   border: {

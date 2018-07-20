@@ -12,7 +12,6 @@ class PlantView extends Component {
   constructor(props) {
   super(props)
   this.state = {
-    query: '',
     plant: null,
     loading: true
   };
@@ -35,13 +34,13 @@ getPlant = () => {
 
    axios.get(`http://${Config.PLANTS_API}/plants/` + this.props.navigation.getParam('single_plant_id'))
 
- .then((response) => {
-   this.setState({plant: response.data, loading: false})
- })
- .catch((error) => {
-   alert(error.errors + "get plant errors")
- });
-}
+    .then((response) => {
+      this.setState({plant: response.data, loading: false})
+    })
+    .catch((error) => {
+      alert(error.errors + "get plant errors")
+    });
+  }
 
   render(){
     const loading = this.state.loading

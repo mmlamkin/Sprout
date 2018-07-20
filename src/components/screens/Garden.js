@@ -66,54 +66,54 @@ class Garden extends Component {
       });
     }
 
-    makeWateringSchedule = () => {
-  let today = new Date()
-  let year = today.getFullYear().toString()
-  let nextYear = (parseInt(year) + 1).toString()
-  let start_of_season = Date.parse(`april 1 ${year} 9:00`)
-  let end_of_season = `${year}0930T070000Z`
-  let startDate = today
-  let endDate = end_of_season
+  makeWateringSchedule = () => {
+    let today = new Date()
+    let year = today.getFullYear().toString()
+    let nextYear = (parseInt(year) + 1).toString()
+    let start_of_season = Date.parse(`april 1 ${year} 9:00`)
+    let end_of_season = `${year}0930T070000Z`
+    let startDate = today
+    let endDate = end_of_season
 
 
 
-  if (today > start_of_season && today < end_of_season) {
-    startDate = today
-    endDate = end_of_season
-  }
-  else if (today > end_of_season) {
-    startDate = Date.parse(`april 1 ${nextYear} 9:00`)
-    endDate = `${nextYear}0930T070000Z`
-  }
-  else if (today < start_of_season) {
-    startDate = start_of_season
-    endDate = end_of_season
-  }
+    if (today > start_of_season && today < end_of_season) {
+      startDate = today
+      endDate = end_of_season
+    }
+    else if (today > end_of_season) {
+      startDate = Date.parse(`april 1 ${nextYear} 9:00`)
+      endDate = `${nextYear}0930T070000Z`
+    }
+    else if (today < start_of_season) {
+      startDate = start_of_season
+      endDate = end_of_season
+    }
 
-  let waterDetails = {
-    title: 'Water Your Garden!',
-    startDate: startDate,
-    endDate: startDate,
-    timeZone: 'PST',
-    recurrenceRule: {
-      frequency: 'weekly',
-      interval: 1,
-      byDay: 'sunday',
-      until: endDate
-    },
-    notes: 'Remember to water this week! 2-3 days of DEEP watering--AKA water until the soil is wet about an inch deep'
+    let waterDetails = {
+      title: 'Water Your Garden!',
+      startDate: startDate,
+      endDate: startDate,
+      timeZone: 'PST',
+      recurrenceRule: {
+        frequency: 'weekly',
+        interval: 1,
+        byDay: 'sunday',
+        until: endDate
+      },
+      notes: 'Remember to water this week! 2-3 days of DEEP watering--AKA water until the soil is wet about an inch deep'
     }
 
 
-  Calendar.createEventAsync(globalState.calendar_id, waterDetails)
-    .then( event => {
-      console.log("get watering!");
+    Calendar.createEventAsync(globalState.calendar_id, waterDetails)
+      .then( event => {
+        console.log("get watering!");
 
-    })
-    .catch( error => {
-      console.log((error));
-    });
-}
+      })
+      .catch( error => {
+        console.log((error));
+      });
+  }
 
 
 
