@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { View, StyleSheet, Image, Text} from 'react-native'
+import { View, StyleSheet, Image, Text, TouchableHighlight, Modal} from 'react-native'
 import { List } from "../containers"
 import axios from 'axios';
 import { createStackNavigator} from  'react-navigation';
@@ -17,7 +17,8 @@ class BrowseView extends Component {
   this.state = {
     plants: [],
     results: [],
-    events: []
+    events: [],
+    modalVisible: true
   }
    this._handleResults = this._handleResults.bind(this);
    this.accessCalendars = this.accessCalendars.bind(this);
@@ -141,6 +142,20 @@ static navigationOptions = {
 
     showPlant = (single_plant_id) =>          this.props.navigation.navigate('PlantView', {single_plant_id: single_plant_id})
 
+    // showModal = () => {
+    //   if (this.state.modalVisible) {
+    //     return (<TouchableHighlight
+    //     onPress={() => {
+    //       this.setState({modalVisible: !this.state.modalVisible});
+    //     }}>
+    //     <View style={{height: 300, width: 300, backgroundColor: 'white'}}>
+    //       <Image style={{height: 30,
+    //         width: 30}}
+    //         source = {config.images.sproutLittle}/><Text style={{fontSize: 24, fontWeight: 'bold', paddingLeft: 8 }}>Welcome to Sprout</Text>
+    //     </View>
+    //     </TouchableHighlight>)
+    // }}
+
   render(){
     const results = this.state.results
 
@@ -179,13 +194,14 @@ static navigationOptions = {
           handleResults={this._handleResults}
           showOnLoad
         />
+        {this.showModal()}
 
         <List
           showPlant={this.showPlant} plants={this.state.plants}
           garden={false}
           addToCalendar={this.addToCalendar}
         />
-        </View>
+      </View>
 
     )
   }

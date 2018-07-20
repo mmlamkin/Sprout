@@ -10,37 +10,38 @@ import Config from '../../../env';
 
 class PlantView extends Component {
   constructor(props) {
-  super(props)
-  this.state =  {
-    plant: null,
-    loading: true
-  };
-  this.getPlant()
-}
+    super(props)
+    this.state =  {
+      plant: null,
+      loading: true
+    };
+    this.getPlant()
+  }
 
-optimalSoil = () => {
-  if (this.state.plant.optimal_soil) {
-     return (<Text><Image style={{height: 35,
-  width: 35}}
-  source = {config.images.plant}/> {this.state.plant.optimal_soil} soil</Text>)
-}
-  else {
+  optimalSoil = () => {
+    if (this.state.plant.optimal_soil) {
+      return (<Text><Image style={{height: 35,
+        width: 35}}
+        source = {config.images.plant}/> {this.state.plant.optimal_soil} soil</Text>)
+    }
+    else {
     return (<Text><Image style={{height: 35,
-  width: 35}}
-  source = {config.images.plant}/> No special soil needs</Text>)
-}}
+      width: 35}}
+      source = {config.images.plant}/> No special soil needs</Text>)
+    }
+  }
 
-getPlant = () => {
+  getPlant = () => {
 
    axios.get(`http://${Config.PLANTS_API}/plants/` + this.props.navigation.getParam('single_plant_id'))
 
- .then((response) => {
-   this.setState({plant: response.data, loading: false})
- })
- .catch((error) => {
-   alert(error.errors + "get plant errors")
- });
-}
+   .then((response) => {
+     this.setState({plant: response.data, loading: false})
+   })
+   .catch((error) => {
+     alert(error.errors + "get plant errors")
+   });
+ }
 
   render(){
     const loading = this.state.loading
