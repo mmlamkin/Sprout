@@ -26,7 +26,6 @@ class Login extends Component {
     catch (error) {
       alert(error);
     }
-  
 
   async signInWithGoogleAsync() {
     try {

@@ -108,7 +108,7 @@ class Garden extends Component {
         frequency: 'weekly',
         interval: 1,
         byDay: 'sunday',
-        until: endDate
+        until: '20180831T070000Z'
       },
       notes: 'Remember to water this week! 2-3 days of DEEP watering--AKA water until the soil is wet about an inch deep'
     }
