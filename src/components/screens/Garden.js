@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, Text  } from 'react-native';
-import { Header, Button } from 'react-native-elements';
+import { Header, Button, Image } from 'react-native-elements';
 import { List } from "../containers";
 import axios from 'axios';
 import Config from '../../../env';
@@ -9,6 +9,15 @@ import globalState from '../../GlobalState';
 import HeaderImage from '../presentation';
 import { Expo, Constants, Calendar, Permissions} from 'expo';
 
+// const ImageHeader = props => (
+//   <View style={{ backgroundColor: '#eee' }}>
+//     <Image
+//       style={{height: 100 + '%', width: 100 + '%'}}
+//       source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/3/36/Hopetoun_falls.jpg' }}
+//     />
+//     <Header {...props} style={{ backgroundColor: 'transparent' }}/>
+//   </View>
+// );
 
 class Garden extends Component {
   constructor() {
@@ -75,8 +84,6 @@ class Garden extends Component {
     let startDate = today
     let endDate = end_of_season
 
-
-
     if (today > start_of_season && today < end_of_season) {
       startDate = today
       endDate = end_of_season
@@ -115,11 +122,9 @@ class Garden extends Component {
       });
   }
 
-
-
     render(){
       const gardenPlants = this.state.plants
-      if (gardenPlants) {
+      if (gardenPlants != []) {
         return this.renderPlants()
       }
       else {
@@ -161,6 +166,7 @@ class Garden extends Component {
           <Button title='Make Watering Schedule'
             containerStyle={{fontSize: 1, marginTop: 20}}
             buttonStyle={styles.button}
+            textStyle={{fontSize: 6}}
             onPress={() =>
               this.makeWateringSchedule()
             }/>
@@ -168,6 +174,7 @@ class Garden extends Component {
             <Button title='Clear Garden'
             containerStyle={{fontSize: 2, marginTop: 20}}
             buttonStyle={styles.button}
+            textStyle={{fontSize: 12}}
             onPress={() =>
               this.clearGarden()
             }/>
@@ -180,7 +187,7 @@ class Garden extends Component {
      return(
        <View style={{flex: 1, width: 100 + "%", height: 100 + "%", backgroundColor: 'white'}}>
         <Header
-          // centerComponent={<HeaderImage />}
+          // centerComponent={<ImageHeader />}
           outerContainerStyles={{backgroundColor: '#8b81f1', marginTop: 70}}
           innerContainerStyles={{backgroundColor: '#8b81f1'}}
         />
@@ -199,21 +206,24 @@ class Garden extends Component {
            addToCalendar={this.props.addToCalendar}
          />
 
-         <Button title='Make Watering Schedule'
-       containerStyle={{fontSize: 2, marginTop: 20}}
-       buttonStyle={styles.button}
-       onPress={() =>
-        this.makeWateringSchedule()
-      }/>
+         <View style={{flexDirection: 'row', marginVertical: 5}}>
+          <Button title='Make Watering Schedule'
+            containerStyle={{marginTop: 20}}
+            buttonStyle={styles.button}
+            textStyle={{fontSize: 6}}
+            onPress={() =>
+              this.makeWateringSchedule()
+            }/>
 
-         <Button title='Clear Garden'
-       containerStyle={{fontSize: 2, marginTop: 20}}
-       buttonStyle={styles.button}
-       textStyle={{fontSize: 10}}
-       onPress={() =>
-        this.clearGarden()
-      }/>
-         </View>
+            <Button title='Clear Garden'
+            containerStyle={{marginTop: 20}}
+            buttonStyle={styles.button}
+            textStyle={{fontSize: 8}}
+            onPress={() =>
+              this.clearGarden()
+            }/>
+          </View>
+        </View>
 
      )
    }
@@ -226,7 +236,7 @@ class Garden extends Component {
        outerContainerStyles={{backgroundColor: '#8b81f1', width: 100 + "%"}}
        innerContainerStyles={{backgroundColor: '#8b81f1'}}
        />
-          <Text>No Plants in your Garden Yet!</Text>
+          <Text style={{marginTop: 200, fontSize: 50}}>No Plants in your Garden Yet!</Text>
           <List
             garden={true}
           />
@@ -245,5 +255,6 @@ class Garden extends Component {
   borderColor: "transparent",
   borderWidth: 0,
   borderRadius: 25,
-  justifyContent: "center", alignItems: "center"}
+  justifyContent: "center",
+  alignItems: "center"}
   });

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { View, Text, Image, StyleSheet, ScrollView } from 'react-native'
+import { View, Text, Image, StyleSheet, ScrollView, ImageBackground } from 'react-native'
 import PLANTDATA from '../../../test-data/plants'
 import config from "../../config"
 import { Header } from 'react-native-elements';
@@ -17,6 +17,26 @@ class PlantView extends Component {
     };
     this.getPlant()
   }
+
+  static navigationOptions = {
+    headerTitle: (
+      <View style={{justifyContent: 'center', flexDirection: 'row', alignItems: 'center', marginLeft: 20 + '%'}}>
+      <Image style={{height: 30,
+        width: 30}}
+        source = {config.images.sproutLittle}/><Text style={{fontSize: 24, fontWeight: 'bold', paddingLeft: 8, color: '#fff'}}>Sprout</Text>
+        </View>
+      ),
+      headerStyle: {
+        backgroundColor: "#8b81f1",
+        maxHeight: 90
+      },
+      headerTintColor: '#fff',
+
+      headerTitleStyle: {
+        fontWeight: 'bold',
+        textAlign: "center"
+      },
+}
 
   optimalSoil = () => {
     if (this.state.plant.optimal_soil) {
@@ -53,29 +73,42 @@ class PlantView extends Component {
   renderPage(){
 
     return(
-
+      <ImageBackground source={{uri: 'https://images.pexels.com/photos/41324/background-close-up-flora-fresh-41324.jpeg?auto=compress&cs=tinysrgb&h=350'}} style={{width: '100%', height: '100%'}}>
       <ScrollView >
-      <View style={styles.outerContainer}>
-        <Text style={{fontSize: 15}}>Everything you need to know about...</Text>
-        <Text style={{marginBottom: 15, fontSize: 20, marginTop: 15, fontWeight: 'bold'}}>{this.state.plant.name}</Text>
-        <Image style={styles.imageStyle} source={{uri: "https:" + this.state.plant.image}} />
+        <View style={styles.outerContainer}>
+          <Text style={{fontSize: 15}}>Everything you need to know about...</Text>
+          <Text style={{marginBottom: 15, fontSize: 20, marginTop: 15, fontWeight: 'bold'}}>{this.state.plant.name}</Text>
+          <Image style={styles.imageStyle} source={{uri: "https:" + this.state.plant.image}} />
 
-        <View style={styles.middleContainer}>
+          <View style={styles.middleContainer}>
 
-          <Text><Image style={{height: 35,
-            width: 35}}
-            source = {config.images.sun}/> {this.state.plant.optimal_sun}</Text>
-          {this.optimalSoil()}
-        </View>
-        <Text>{this.state.plant.description}</Text>
+            <Text><Image style={{height: 35,
+              width: 35}}
+              source = {config.images.sun}/> {this.state.plant.optimal_sun}</Text>
+              {this.optimalSoil()}
+          </View>
 
-        <Text>{this.state.plant.when_to_plant} {this.state.plant.growing_from_seed} {this.state.plant.spacing}</Text>
-        <Text>**{this.state.plant.planting_considerations}**</Text>
-        <Text style={{fontWeight: 'bold'}}>Watering:</Text><Text> {this.state.plant.watering}</Text>
-        <Text style={{fontWeight: 'bold'}}>Harvesting:</Text><Text> {this.state.plant.harvesting}</Text>
-        <Text style={{fontWeight: 'bold'}}>Other Fun Stuff:</Text><Text> {this.state.plant.other_care}</Text>
+          <View style={{backgroundColor: 'white'}}>
+          <Text>{this.state.plant.description}</Text>
+
+          <Text>{this.state.plant.when_to_plant} {this.state.plant.growing_from_seed} {this.state.plant.spacing}</Text>
+          <Text>**{this.state.plant.planting_considerations}**  </Text>
+          </View>
+
+          <View style={{backgroundColor: 'white'}}>
+          <Text style={{fontWeight:   'bold', alignSelf: 'center'}}>Watering:</Text><Text> {this.state.plant.watering}</Text>
+          </View>
+
+          <View style={{backgroundColor: 'white'}}>
+          <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>Harvesting:</Text><Text> {this.state.plant.harvesting}</Text>
+          </View>
+
+          <View style={{backgroundColor: 'white'}}>
+          <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>Other Fun  Stuff:</Text><Text> {this.state.plant.other_care}</Text>
+          </View>
         </View>
       </ScrollView>
+    </ImageBackground>
 
     )
   }
@@ -85,7 +118,7 @@ export default PlantView
 const styles = StyleSheet.create({
 
   imageStyle: {
-  width: 50 + "%",
+  width: 60 + "%",
   height: 250,
   paddingLeft: 10,
   paddingRight: 10,
@@ -98,21 +131,13 @@ outerContainer: {
   justifyContent: "center",
   alignItems: "center",
   paddingLeft: 15,
-  paddingRight:40,
+  paddingRight:20,
   paddingBottom: 80,
-  backgroundColor: 'white',
-  borderRadius: 4,
-  borderWidth: 5,
-  borderColor: '#ef7d73',
-
 
 },
-summaryContainer: {
-  flexDirection: "column",
-  width: 45 + "%"
-},
+
 middleContainer: {
   justifyContent: "center",
-
+  backgroundColor: "white"
 }
 });

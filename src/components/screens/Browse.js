@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { View, StyleSheet, Image, Text, TouchableHighlight, Modal} from 'react-native'
+import { View, StyleSheet, Image, Text, TouchableHighlight, Modal, Header, ImageBackground} from 'react-native'
 import { List } from "../containers"
 import axios from 'axios';
 import { createStackNavigator} from  'react-navigation';
@@ -10,6 +10,14 @@ import SearchBar from 'react-native-searchbar';
 import globalState from '../../GlobalState';
 import { Expo, Constants, Calendar, Permissions} from 'expo';
 
+// const ImageHeader = props => (
+//
+//     <ImageBackground
+//       style={StyleSheet.absoluteFill}
+//       source={{ uri: 'https://previews.123rf.com/images/creativestoc/creativestoc1006/creativestoc100600089/7267918-rainbow-chard.jpg' }}
+//     >
+//     <Header {...props} style={{ backgroundColor: 'transparent' }}/>
+// );
 
 class BrowseView extends Component {
   constructor() {
@@ -25,8 +33,9 @@ class BrowseView extends Component {
 }
 
 static navigationOptions = {
+    // header: (props) => <ImageHeader {...props} />
     headerTitle: (
-      <View style={{justifyContent: 'center', flexDirection: 'row', alignItems: 'center', marginLeft: 35 + '%'}}>
+      <View style={{justifyContent: 'center', flexDirection: 'row', alignItems: 'center', marginLeft: 33 + '%'}}>
       <Image style={{height: 30,
         width: 30}}
         source = {config.images.sproutLittle}/><Text style={{fontSize: 24, fontWeight: 'bold', paddingLeft: 8, color: '#fff'}}>Sprout</Text>
@@ -36,7 +45,6 @@ static navigationOptions = {
         backgroundColor: "#8b81f1",
         maxHeight: 90
       },
-      headerTintColor: '#fff',
 
       headerTitleStyle: {
         fontWeight: 'bold',
@@ -111,7 +119,7 @@ static navigationOptions = {
        else {
          startdate = early_date2
          enddate = early_date2
-         startNotes = `The time has come to plant the ${name} in your garden!`
+         startNotes = `Right around now is the best time to plant your ${name} in your garden! Double check care on your app and check your local weather!`
        }
      }
 
@@ -142,19 +150,6 @@ static navigationOptions = {
 
     showPlant = (single_plant_id) =>          this.props.navigation.navigate('PlantView', {single_plant_id: single_plant_id})
 
-    // showModal = () => {
-    //   if (this.state.modalVisible) {
-    //     return (<TouchableHighlight
-    //     onPress={() => {
-    //       this.setState({modalVisible: !this.state.modalVisible});
-    //     }}>
-    //     <View style={{height: 300, width: 300, backgroundColor: 'white'}}>
-    //       <Image style={{height: 30,
-    //         width: 30}}
-    //         source = {config.images.sproutLittle}/><Text style={{fontSize: 24, fontWeight: 'bold', paddingLeft: 8 }}>Welcome to Sprout</Text>
-    //     </View>
-    //     </TouchableHighlight>)
-    // }}
 
   render(){
     const results = this.state.results
@@ -194,7 +189,25 @@ static navigationOptions = {
           handleResults={this._handleResults}
           showOnLoad
         />
-        {this.showModal()}
+
+        <Modal
+          animationType="slide"
+          transparent={false}
+          visible={this.state.modalVisible}
+          onRequestClose={() => {
+            alert('Modal has been closed.');
+          }}>
+            <View style={{marginTop: 22, height: 300, width: 300, justifyContent: 'center', alignItems: 'center'}}>
+              <View style={{marginTop: 22, height: 300, width: 300, justifyContent: 'center', alignItems: 'center'}}>
+                <TouchableHighlight
+                  onPress={() => {
+                    this.setState({modalVisible: !this.state.modalVisible});
+                  }}>
+                  <Text>Welcome to Sprout!</Text>
+                </TouchableHighlight>
+              </View>
+            </View>
+          </Modal>
 
         <List
           showPlant={this.showPlant} plants={this.state.plants}

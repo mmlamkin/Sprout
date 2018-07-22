@@ -25,8 +25,8 @@ const Tabs = createBottomTabNavigator({
     tabBarIcon:  <Image style={{height: 32,
         width: 32}}
         source = {config.images.garden}
-
-        />
+        />,
+        
   }},
 })
 

@@ -48,7 +48,7 @@ class Login extends Component {
         return result.accessToken;
 
       } else {
-        alert("Could not complete Login");
+        alert("Could not complete Login-Google");
         return {cancelled: true};
       }
     } catch(e) {
@@ -65,9 +65,9 @@ class Login extends Component {
       <View style={styles.container}>
         <View>
           <Image style={{height: 200,
-            width: 175, marginTop: 175}}
+            width: 175, marginTop: 125}}
             source = {config.images.sproutBig}/>
-            <Text style={{fontSize: 25, marginVertical: 10, fontSize: 38, fontWeight: 'bold', alignSelf: 'center', color: '#ef7d73'}}>Sprout</Text>
+            <Text style={{ marginVertical: 10, fontSize: 38, fontWeight: 'bold', alignSelf: 'center', color: '#ef7d73'}}>Sprout</Text>
 
             <Button
             title="Sign In with Google"
