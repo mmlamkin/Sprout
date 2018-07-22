@@ -40,7 +40,6 @@ buttonTitle= () => {
   }
 
 
-
   delFromGarden() {
     const url = `http://${Config.PLANTS_API}/users/${globalState.current_user_id}/plants/` + this.props.plant_id
     axios.delete(url)

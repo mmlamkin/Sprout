@@ -30,13 +30,15 @@ class Garden extends Component {
 }
 
   componentDidMount() {
-    axios.get(`http://${Config.PLANTS_API}/users/${globalState.current_user_id}/gardens`)
-     .then((response) => {
-       this.setState({plants: response.data.plants, garden_id: response.data.garden_id})
-     })
-     .catch((error) => {
-       alert("Could not load your Garden!")
-     });
+    this.props.navigation.addListener('willFocus', (status: true) => {
+      axios.get(`http://${Config.PLANTS_API}/users/${globalState.current_user_id}/gardens`)
+        .then((response) => {
+          this.setState({plants: response.data.plants, garden_id: response.data.garden_id})
+        })
+        .catch((error) => {
+          alert("Could not load your Garden!")
+        });
+    });
 
    }
 
@@ -184,6 +186,7 @@ class Garden extends Component {
      )
    }
    renderFullList(){
+
      return(
        <View style={{flex: 1, width: 100 + "%", height: 100 + "%", backgroundColor: 'white'}}>
         <Header
