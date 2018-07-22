@@ -79,10 +79,10 @@ static navigationOptions = {
 
      Calendar.getCalendarsAsync()
        .then( event => {
-         // console.log(event);
+
          let my_id = 0
          event.forEach(function(calendar) {
-           // console.log(calendar);
+
           if(calendar.accessLevel == "owner") {
             my_id = calendar.id
           }

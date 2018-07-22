@@ -32,13 +32,14 @@ buttonTitle= () => {
     const url = `http://${Config.PLANTS_API}/users/${globalState.current_user_id}/plants/` + this.props.plant_id
     await axios.patch(url)
       alert('Plant added to garden')
-      this.props.addPlant(this.props.plant)
-      this.props.addToCalendar(this.props.name, this.props.early_dates, this.props.late_dates)
-    // })
-    // .catch((error) => {
-    //   alert('add to garden error')
-    // });
+      // this.props.addPlant(this.props.plant)
+      this.props.addToCalendar(this.props.name, this.props.early_dates, this.props.late_dates)}
+      catch (error) {
+        console.error(error)
+      alert('Add to garden error')
   }
+
+
 
   delFromGarden() {
     const url = `http://${Config.PLANTS_API}/users/${globalState.current_user_id}/plants/` + this.props.plant_id

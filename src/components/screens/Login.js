@@ -22,12 +22,11 @@ class Login extends Component {
   async getUser(email) {
     const url = `http://${Config.PLANTS_API}/users?email=` + email
      const response = await axios.post(url)
-      return response.data.user_id
-
-    // .catch(function (error) {
-    //   console.log(error);
-    // });
-  }
+      return response.data.user_id}
+    catch (error) {
+      alert(error);
+    }
+  
 
   async signInWithGoogleAsync() {
     try {
@@ -48,7 +47,7 @@ class Login extends Component {
         return result.accessToken;
 
       } else {
-        alert("Could not complete Login-Google");
+        alert("There was a problem with your google Login");
         return {cancelled: true};
       }
     } catch(e) {
