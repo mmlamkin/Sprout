@@ -37,7 +37,7 @@ class PlantView extends Component {
 
   optimalSoil = () => {
     if (this.state.plant.optimal_soil) {
-      return (<Text><Image style={{height: 35,
+      return (<Text style={{margin: 10}}><Image style={{height: 35,
         width: 35}}
         source = {config.images.plant}/> {this.state.plant.optimal_soil} soil</Text>)
     }
@@ -79,29 +79,37 @@ class PlantView extends Component {
 
           <View style={styles.middleContainer}>
 
-            <Text><Image style={{height: 35,
+            <Text style={{margin: 10}}><Image style={{height: 35,
               width: 35}}
               source = {config.images.sun}/> {this.state.plant.optimal_sun}</Text>
               {this.optimalSoil()}
           </View>
 
-          <View style={{backgroundColor: 'white'}}>
-          <Text style={{marginHorizontal: 5}}>{this.state.plant.description}</Text>
+          <View style={{height: 10, backgroundColor: 'transparent'}} />
 
-          <Text style={{marginHorizontal: 5}}>{this.state.plant.when_to_plant} {this.state.plant.growing_from_seed} {this.state.plant.spacing}</Text>
+          <View style={{backgroundColor: 'white', borderRadius: 25}}>
+          <Text style={{margin: 10}}>{this.state.plant.description}</Text>
+
+          <Text style={{margin: 10}}>{this.state.plant.when_to_plant} {this.state.plant.growing_from_seed} {this.state.plant.spacing}</Text>
           <Text style={{marginHorizontal: 5}}>**{this.state.plant.planting_considerations}**  </Text>
           </View>
 
-          <View style={{backgroundColor: 'white'}}>
-          <Text style={{fontWeight:   'bold', alignSelf: 'center'}}>Watering:</Text><Text style={{marginHorizontal: 5}}> {this.state.plant.watering}</Text>
+          <View style={{height: 10, backgroundColor: 'transparent'}} />
+
+          <View style={{backgroundColor: 'white', borderRadius: 25}}>
+          <Text style={{fontWeight:   'bold', alignSelf: 'center'}}>Watering:</Text><Text style={{margin: 10}}> {this.state.plant.watering}</Text>
           </View>
 
-          <View style={{backgroundColor: 'white'}}>
-          <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>Harvesting:</Text><Text style={{marginHorizontal: 5}}> {this.state.plant.harvesting}</Text>
+          <View style={{height: 10, backgroundColor: 'transparent'}} />
+
+          <View style={{backgroundColor: 'white', borderRadius: 25}}>
+          <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>Harvesting:</Text><Text style={{margin: 10}}> {this.state.plant.harvesting}</Text>
           </View>
 
-          <View style={{backgroundColor: 'white'}}>
-          <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>Other Fun  Stuff:</Text><Text style={{marginHorizontal: 5}}> {this.state.plant.other_care}</Text>
+          <View style={{height: 10, backgroundColor: 'transparent'}} />
+
+          <View style={{backgroundColor: 'white', borderRadius: 25}}>
+          <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>Other Fun  Stuff:</Text><Text style={{margin: 15}}> {this.state.plant.other_care}</Text>
           </View>
         </View>
       </ScrollView>
@@ -135,6 +143,7 @@ outerContainer: {
 
 middleContainer: {
   justifyContent: "center",
-  backgroundColor: "white"
+  backgroundColor: "white",
+  borderRadius: 25
 }
 });
