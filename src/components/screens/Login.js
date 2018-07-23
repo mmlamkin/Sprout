@@ -46,7 +46,7 @@ class Login extends Component {
         return result.accessToken;
 
       } else {
-        alert("There was a problem with your google Login");
+        alert("There was a problem with your Google Login");
         return {cancelled: true};
       }
     } catch(e) {

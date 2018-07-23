@@ -77,14 +77,16 @@ class Garden extends Component {
       });
     }
 
+
   makeWateringSchedule = () => {
     let today = new Date()
     let year = today.getFullYear().toString()
     let nextYear = (parseInt(year) + 1).toString()
     let start_of_season = Date.parse(`april 1 ${year} 9:00`)
-    let end_of_season = `${year}0930T070000Z`
+    let end_of_season = Date.parse(`Oct 7 ${year} 9:00`)
     let startDate = today
     let endDate = end_of_season
+    let reminderCount = Math.round((endDate - today)/(60*60*7*1000*24))
 
     if (today > start_of_season && today < end_of_season) {
       startDate = today
@@ -92,7 +94,7 @@ class Garden extends Component {
     }
     else if (today > end_of_season) {
       startDate = Date.parse(`april 1 ${nextYear} 9:00`)
-      endDate = `${nextYear}0930T070000Z`
+      endDate = Date.parse(`Oct 7 ${nextYear} 9:00`)
     }
     else if (today < start_of_season) {
       startDate = start_of_season
@@ -107,16 +109,14 @@ class Garden extends Component {
       recurrenceRule: {
         frequency: 'weekly',
         interval: 1,
-        byDay: 'sunday',
-        until: '20180831T070000Z'
+        occurrence: reminderCount
       },
       notes: 'Remember to water this week! 2-3 days of DEEP watering--AKA water until the soil is wet about an inch deep'
     }
 
-
     Calendar.createEventAsync(globalState.calendar_id, waterDetails)
       .then( event => {
-        console.log("get watering!");
+        alert("get watering!");
 
       })
       .catch( error => {
