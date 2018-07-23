@@ -47,16 +47,25 @@ class Login extends Component {
         showMessage({
           message: "Welcome to Sprout!",
           type: "success",
+          floating: true
         });
 
         return result.accessToken;
 
       } else {
-        alert("There was a problem with your Google Login");
+        showMessage({
+          message: "There was a problem with your Google Login",
+          type: "danger",
+          floating: true
+        });
         return {cancelled: true};
       }
     } catch(e) {
-      alert(e.response.data.errors);
+      showMessage({
+        message: "Could not complete login",
+        type: "danger",
+        floating: true
+      });
       return {error: true};
     }
   }

@@ -50,7 +50,11 @@ class Garden extends Component {
           this.setState({plants: response.data.plants, garden_id: response.data.garden_id})
         })
         .catch((error) => {
-          alert(error.response.data.errors)
+          showMessage({
+            message: error.response.data.errors,
+            type: "danger",
+            floating: true
+          })
         });
     });
 
@@ -85,7 +89,11 @@ class Garden extends Component {
         this.setState({plants: response.data.plants})
       })
       .catch((error) => {
-        alert(error.response.data.errors)
+        showMessage({
+          message: error.response.data.errors,
+          type: "danger",
+          floating: true
+        })
       });
     }
 
@@ -128,21 +136,35 @@ class Garden extends Component {
       notes: 'Remember to water this week! 2-3 days of DEEP watering--AKA water until the soil is wet about an inch deep'
     }
 
-    Calendar.createEventAsync(globalState.calendar_id, waterDetails)
-      .then( event => {
-        console.log(startDate);
-        showMessage({
-          message: "Get watering!",
-          type: "success",
+    if (globalState.calendar_id) {
+
+      Calendar.createEventAsync(globalState.calendar_id, waterDetails)
+        .then( event => {
+          console.log(startDate);
+          showMessage({
+            message: "Get watering!",
+            type: "success",
+          });
+          this.setState({
+            wateringEvent: event.toString(),
+            canWater: false})
+        })
+        .catch( error => {
+          console.log((error));
+          showMessage({
+            message: error.response.data.errors,
+            type: "danger",
+            floating: true
+          })
         });
-        this.setState({
-          wateringEvent: event.toString(),
-          canWater: false})
+    }
+    else {
+      showMessage({
+        message: "Sorry, Sprout needs calendar access to do that!",
+        type: "danger",
+        floating: true
       })
-      .catch( error => {
-        console.log((error));
-        alert(error.response.data.errors)
-      });
+    }
   }
 
   deleteWateringSchedule = () => {
@@ -163,8 +185,11 @@ class Garden extends Component {
         })
       })
       .catch( error => {
-        console.log((error));
-        alert(error.response.data.errors)
+        showMessage({
+          message: error.response.data.errors,
+          type: "danger",
+          floating: true
+        })
       });
   }
 

@@ -51,8 +51,11 @@ static navigationOptions = {
        this.setState({plants: response.data})
      })
      .catch((error) => {
-       alert(error.response.data.errors)
-       console.log(error);
+       showMessage({
+         message: error.response.data.errors,
+         type: "danger",
+         floating: true
+       })
      });
    }
 
@@ -62,7 +65,11 @@ static navigationOptions = {
      if (status === 'granted') {
        this.allCalendars();}
       else {
-        console.log();('permission not granted');
+        showMessage({
+          message: "Could not access calendars",
+          type: "danger",
+          floating: true
+        })
       }
     }
 
@@ -81,7 +88,11 @@ static navigationOptions = {
         globalState.calendar_id = my_id
        })
        .catch( error => {
-         alert(error.response.data.errors)
+         showMessage({
+           message: "Could not find your calendar",
+           type: "danger",
+           floating: true
+         })
        });
    }
 
@@ -121,17 +132,28 @@ static navigationOptions = {
        timeZone: 'PST',
        notes: startNotes
      }
+     if (globalState.calendar_id) {
+       Calendar.createEventAsync(globalState.calendar_id, plantingDetails)
+         .then( event => {
+           showMessage({
+             message: `${name} added to your calendar`,
+             type: "success",
+           });
+         })
+         .catch( error => {
+           showMessage({
+             message: `Could not add ${name} to your calendar`,
+             type: "danger",
+             floating: true
+           })
+       })}
+      else {
+        showMessage({
+          message: `Could not add ${name} to your calendar without calendar access`
+          type: "danger",
+          floating: true
+      }
 
-     Calendar.createEventAsync(globalState.calendar_id, plantingDetails)
-       .then( event => {
-         showMessage({
-           message: `${name} added to your calendar`,
-           type: "success",
-         });
-       })
-       .catch( error => {
-          alert(error.response.data.errors)
-       });
    }
 
     _handleResults(results) {

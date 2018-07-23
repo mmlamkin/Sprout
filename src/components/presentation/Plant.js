@@ -42,7 +42,11 @@ buttonTitle= () => {
       });
       this.props.addToCalendar(this.props.name, this.props.early_dates, this.props.late_dates)
     } catch (error) {
-      alert(error.response.data.errors)
+      showMessage({
+        message: error.response.data.errors,
+        type: "danger",
+        floating: true
+      })
     }
   }
 
@@ -58,7 +62,11 @@ buttonTitle= () => {
       this.props.removePlant(this.props.plant_id)
     })
     .catch((error) => {
-      alert(error.response.data.errors)
+      showMessage({
+        message: error.response.data.errors,
+        type: "danger",
+        floating: true
+      })
     });
   }
 
