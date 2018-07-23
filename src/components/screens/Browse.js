@@ -9,6 +9,7 @@ import config from "../../config";
 import SearchBar from 'react-native-searchbar';
 import globalState from '../../GlobalState';
 import { Expo, Constants, Calendar, Permissions} from 'expo';
+import { showMessage } from "react-native-flash-message";
 
 class BrowseView extends Component {
   constructor() {
@@ -80,7 +81,6 @@ static navigationOptions = {
         globalState.calendar_id = my_id
        })
        .catch( error => {
-         console.log((error));
          alert(error.response.data.errors)
        });
    }
@@ -124,7 +124,10 @@ static navigationOptions = {
 
      Calendar.createEventAsync(globalState.calendar_id, plantingDetails)
        .then( event => {
-        alert('added to calendar')
+         showMessage({
+           message: `${name} added to your calendar`,
+           type: "success",
+         });
        })
        .catch( error => {
           alert(error.response.data.errors)

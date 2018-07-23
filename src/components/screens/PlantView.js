@@ -33,7 +33,8 @@ class PlantView extends Component {
         fontWeight: 'bold',
         textAlign: "center"
       },
-}
+
+    }
 
   optimalSoil = () => {
     if (this.state.plant.optimal_soil) {
@@ -42,7 +43,7 @@ class PlantView extends Component {
         source = {config.images.plant}/> {this.state.plant.optimal_soil} soil</Text>)
     }
     else {
-    return (<Text><Image style={{height: 35,
+    return (<Text style={{margin: 10}}><Image style={{height: 35,
       width: 35}}
       source = {config.images.plant}/> No special soil needs</Text>)
     }

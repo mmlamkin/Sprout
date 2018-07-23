@@ -10,6 +10,7 @@ import PlantView from './PlantView';
 import { createStackNavigator} from  'react-navigation';
 import globalState from '../../GlobalState';
 import { Expo, Constants, Calendar, Permissions} from 'expo';
+import { showMessage } from "react-native-flash-message";
 
 class Garden extends Component {
   constructor() {
@@ -77,7 +78,10 @@ class Garden extends Component {
       const url = `http://${Config.PLANTS_API}/users/${globalState.current_user_id}/gardens/` + this.state.garden_id
       axios.delete(url)
       .then((response) => {
-        alert('Garden Cleared')
+        showMessage({
+          message: "Garden cleared!",
+          type: "success",
+        });
         this.setState({plants: response.data.plants})
       })
       .catch((error) => {
@@ -127,7 +131,10 @@ class Garden extends Component {
     Calendar.createEventAsync(globalState.calendar_id, waterDetails)
       .then( event => {
         console.log(startDate);
-        alert("Get watering!");
+        showMessage({
+          message: "Get watering!",
+          type: "success",
+        });
         this.setState({
           wateringEvent: event.toString(),
           canWater: false})
@@ -146,7 +153,10 @@ class Garden extends Component {
 
     Calendar.deleteEventAsync(this.state.wateringEvent, recurringEventOptions)
       .then( event => {
-        alert("Watering Schedule Deleted")
+        showMessage({
+          message: "Watering schedule deleted",
+          type: "success",
+        });
         this.setState({
           wateringEvent: '',
           canWater: true
@@ -189,7 +199,7 @@ class Garden extends Component {
            heightAdjust={-2}
          />
 
-         <View style={{marginTop: 60}}>
+         <View style={{marginTop: 60, height: 80 + "%"}}>
            <List
              showPlant={this.showPlant} plants={this.state.results}
              garden={true}
@@ -199,7 +209,7 @@ class Garden extends Component {
            />
           </View>
 
-         <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+         <View style={{flexDirection: 'row', marginTop: 5}}>
           <Button title={this.state.canWater ? 'Make Watering Schedule': 'Delete Watering Schedule'}
             containerStyle={{fontSize: 1, marginTop: 20}}
             buttonStyle={styles.button}
@@ -211,7 +221,7 @@ class Garden extends Component {
             <Button title='Clear Garden'
             containerStyle={{fontSize: 2, marginTop: 20}}
             buttonStyle={styles.button}
-            textStyle={{fontSize: 12}}
+            textStyle={{fontSize: 8}}
             onPress={() =>
               this.clearGarden()
             }/>
@@ -232,7 +242,8 @@ class Garden extends Component {
            focusOnLayout={false}
            heightAdjust={-2}
          />
-         <View style={{marginTop: 60}}>
+
+         <View style={{marginTop: 60, height: 80 + "%"}}>
            <List
              showPlant={this.showPlant} plants={this.state.plants}
              garden={true}
@@ -242,23 +253,24 @@ class Garden extends Component {
            />
           </View>
 
-         <View style={{flexDirection: 'row', marginVertical: 5}}>
+         <View style={{flexDirection: 'row', marginTop: 5}}>
           <Button title={this.state.canWater ? 'Make Watering Schedule': 'Delete Watering Schedule'}
-           containerStyle={{fontSize: 1, marginTop: 20}}
-           buttonStyle={styles.button}
-           textStyle={{fontSize: 6}}
-           onPress={() =>
-             this.state.canWater ? this.makeWateringSchedule():this.deleteWateringSchedule()
-           }/>
+            containerStyle={{fontSize: 1, marginTop: 20}}
+            buttonStyle={styles.button}
+            textStyle={{fontSize: 6}}
+            onPress={() =>
+              this.state.canWater ? this.makeWateringSchedule():this.deleteWateringSchedule()
+            }/>
 
             <Button title='Clear Garden'
-            containerStyle={{marginTop: 20}}
+            containerStyle={{fontSize: 2, marginTop: 20}}
             buttonStyle={styles.button}
             textStyle={{fontSize: 8}}
             onPress={() =>
               this.clearGarden()
             }/>
           </View>
+
         </View>
 
      )

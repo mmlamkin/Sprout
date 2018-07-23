@@ -5,7 +5,8 @@ import Config from '../../../env';
 import Expo from 'expo';
 import axios from 'axios';
 import globalState from '../../GlobalState';
-import {Font} from 'expo'
+import {Font} from 'expo';
+import { showMessage } from "react-native-flash-message";
 
 
 
@@ -42,6 +43,11 @@ class Login extends Component {
         globalState.current_user_id = this.state.user_id
 
         this.props.navigation.navigate('main');
+
+        showMessage({
+          message: "Welcome to Sprout!",
+          type: "success",
+        });
 
         return result.accessToken;
 

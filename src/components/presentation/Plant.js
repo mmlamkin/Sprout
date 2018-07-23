@@ -4,6 +4,7 @@ import { Button } from 'react-native-elements';
 import Config from '../../../env';
 import axios from 'axios';
 import globalState from '../../GlobalState';
+import { showMessage } from "react-native-flash-message";
 
 class Plant extends Component {
 
@@ -35,7 +36,10 @@ buttonTitle= () => {
 
     try {
       response = await axios.patch(url)
-      alert('Plant added to garden')
+      showMessage({
+        message: "Plant added to your garden",
+        type: "success",
+      });
       this.props.addToCalendar(this.props.name, this.props.early_dates, this.props.late_dates)
     } catch (error) {
       alert(error.response.data.errors)
@@ -47,7 +51,10 @@ buttonTitle= () => {
     const url = `http://${Config.PLANTS_API}/users/${globalState.current_user_id}/plants/` + this.props.plant_id
     axios.delete(url)
     .then((response) => {
-      alert('Plant removed from garden')
+      showMessage({
+        message: "Plant removed from your garden",
+        type: "success",
+      });
       this.props.removePlant(this.props.plant_id)
     })
     .catch((error) => {
