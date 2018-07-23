@@ -30,12 +30,16 @@ buttonTitle= () => {
 
   async addToGarden() {
     const url = `http://${Config.PLANTS_API}/users/${globalState.current_user_id}/plants/` + this.props.plant_id
-    await axios.patch(url)
+
+    let response
+
+    try {
+      response = await axios.patch(url)
       alert('Plant added to garden')
-      this.props.addToCalendar(this.props.name, this.props.early_dates, this.props.late_dates)}
-      catch (error) {
-        console.error(error)
-      alert('Add to garden error')
+      this.props.addToCalendar(this.props.name, this.props.early_dates, this.props.late_dates)
+    } catch (error) {
+      alert(error.response.data.errors)
+    }
   }
 
 
@@ -47,7 +51,7 @@ buttonTitle= () => {
       this.props.removePlant(this.props.plant_id)
     })
     .catch((error) => {
-      alert(JSON.stringify(error.errors))
+      alert(error.response.data.errors)
     });
   }
 

@@ -24,7 +24,7 @@ class Login extends Component {
      const response = await axios.post(url)
       return response.data.user_id}
     catch (error) {
-      alert(error);
+      alert(error.response.data.errors);
     }
 
   async signInWithGoogleAsync() {
@@ -50,8 +50,7 @@ class Login extends Component {
         return {cancelled: true};
       }
     } catch(e) {
-        console.log(e);
-      alert("Could not complete Login");
+      alert(e.response.data.errors);
       return {error: true};
     }
   }

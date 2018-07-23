@@ -10,15 +10,6 @@ import SearchBar from 'react-native-searchbar';
 import globalState from '../../GlobalState';
 import { Expo, Constants, Calendar, Permissions} from 'expo';
 
-// const ImageHeader = props => (
-//
-//     <ImageBackground
-//       style={StyleSheet.absoluteFill}
-//       source={{ uri: 'https://previews.123rf.com/images/creativestoc/creativestoc1006/creativestoc100600089/7267918-rainbow-chard.jpg' }}
-//     >
-//     <Header {...props} style={{ backgroundColor: 'transparent' }}/>
-// );
-
 class BrowseView extends Component {
   constructor() {
   super()
@@ -33,7 +24,6 @@ class BrowseView extends Component {
 }
 
 static navigationOptions = {
-    // header: (props) => <ImageHeader {...props} />
     headerTitle: (
       <View style={{justifyContent: 'center', flexDirection: 'row', alignItems: 'center', marginLeft: 33 + '%'}}>
       <Image style={{height: 30,
@@ -60,7 +50,7 @@ static navigationOptions = {
        this.setState({plants: response.data})
      })
      .catch((error) => {
-       alert("Could not load plants!")
+       alert(error.response.data.errors)
        console.log(error);
      });
    }
@@ -91,6 +81,7 @@ static navigationOptions = {
        })
        .catch( error => {
          console.log((error));
+         alert(error.response.data.errors)
        });
    }
 
@@ -136,7 +127,7 @@ static navigationOptions = {
         alert('added to calendar')
        })
        .catch( error => {
-         console.log((error));
+          alert(error.response.data.errors)
        });
    }
 
@@ -175,7 +166,7 @@ static navigationOptions = {
           showPlant={this.showPlant} plants={this.state.results}
           garden={false}
         />
-        </View>
+      </View>
 
     )
   }
@@ -189,25 +180,6 @@ static navigationOptions = {
           handleResults={this._handleResults}
           showOnLoad
         />
-
-        <Modal
-          animationType="slide"
-          transparent={false}
-          visible={this.state.modalVisible}
-          onRequestClose={() => {
-            alert('Modal has been closed.');
-          }}>
-            <View style={{marginTop: 22, height: 300, width: 300, justifyContent: 'center', alignItems: 'center'}}>
-              <View style={{marginTop: 22, height: 300, width: 300, justifyContent: 'center', alignItems: 'center'}}>
-                <TouchableHighlight
-                  onPress={() => {
-                    this.setState({modalVisible: !this.state.modalVisible});
-                  }}>
-                  <Text>Welcome to Sprout!</Text>
-                </TouchableHighlight>
-              </View>
-            </View>
-          </Modal>
 
         <List
           showPlant={this.showPlant} plants={this.state.plants}

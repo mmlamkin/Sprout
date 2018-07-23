@@ -1,23 +1,15 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, Text  } from 'react-native';
+import { View, StyleSheet, Text, Image  } from 'react-native';
 import { Header, Button } from 'react-native-elements';
 import { List } from "../containers";
 import axios from 'axios';
 import Config from '../../../env';
+import config from "../../config";
 import SearchBar from 'react-native-searchbar';
+import PlantView from './PlantView';
+import { createStackNavigator} from  'react-navigation';
 import globalState from '../../GlobalState';
-import HeaderImage from '../presentation';
 import { Expo, Constants, Calendar, Permissions} from 'expo';
-
-// const ImageHeader = props => (
-//   <View style={{ backgroundColor: '#eee' }}>
-//     <Image
-//       style={{height: 100 + '%', width: 100 + '%'}}
-//       source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/3/36/Hopetoun_falls.jpg' }}
-//     />
-//     <Header {...props} style={{ backgroundColor: 'transparent' }}/>
-//   </View>
-// );
 
 class Garden extends Component {
   constructor() {
@@ -31,6 +23,25 @@ class Garden extends Component {
     this._handleResults = this._handleResults.bind(this);
   }
 
+  static navigationOptions = {
+      headerTitle: (
+        <View style={{justifyContent: 'center', flexDirection: 'row', alignItems: 'center', marginLeft: 33 + '%'}}>
+        <Image style={{height: 30,
+          width: 30}}
+          source = {config.images.sproutLittle}/><Text style={{fontSize: 24, fontWeight: 'bold', paddingLeft: 8, color: '#fff'}}>Sprout</Text>
+          </View>
+        ),
+        headerStyle: {
+          backgroundColor: "#8b81f1",
+          maxHeight: 90
+        },
+
+        headerTitleStyle: {
+          fontWeight: 'bold',
+          textAlign: "center"
+        },
+    };
+
   componentDidMount() {
     this.props.navigation.addListener('willFocus', (status: true) => {
       axios.get(`http://${Config.PLANTS_API}/users/${globalState.current_user_id}/gardens`)
@@ -38,7 +49,7 @@ class Garden extends Component {
           this.setState({plants: response.data.plants, garden_id: response.data.garden_id})
         })
         .catch((error) => {
-          alert("Could not load your Garden!")
+          alert(error.response.data.errors)
         });
     });
 
@@ -61,11 +72,6 @@ class Garden extends Component {
       this.setState({plants: newPlants})
     }
 
-    addPlant = (plant) => {
-      const newPlants = this.state.plants.push(plant)
-      this.setState({plants: newPlants})
-    }
-
 
     clearGarden = () => {
       const url = `http://${Config.PLANTS_API}/users/${globalState.current_user_id}/gardens/` + this.state.garden_id
@@ -75,7 +81,7 @@ class Garden extends Component {
         this.setState({plants: response.data.plants})
       })
       .catch((error) => {
-        alert(error.errors + "clear garden error")
+        alert(error.response.data.errors)
       });
     }
 
@@ -128,6 +134,7 @@ class Garden extends Component {
       })
       .catch( error => {
         console.log((error));
+        alert(error.response.data.errors)
       });
   }
 
@@ -147,6 +154,7 @@ class Garden extends Component {
       })
       .catch( error => {
         console.log((error));
+        alert(error.response.data.errors)
       });
   }
 
@@ -170,26 +178,23 @@ class Garden extends Component {
    renderResults(){
      return(
        <View style={{flex: 1, width: 100 + "%", height: 100 + "%", backgroundColor: 'white'}}>
-       <Header
-       // centerComponent={<HeaderImage />}
-       outerContainerStyles={{backgroundColor: '#8b81f1', top: 50, height: 70, position: 'absolute', width: 100 + "%"}}
-       />
-        <View style={{marginBottom: 70}}>
+
          <SearchBar
            ref={(ref) => this.searchBar = ref}
            data={this.state.plants}
            handleResults={this._handleResults}
            onClear={this._handleClear}
          />
-         </View>
 
-         <List
-           showPlant={this.showPlant} plants={this.state.results}
-           garden={true}
-           removePlant={this.removePlant}
-           addPlant={this.addPlant}
-           addToCalendar={this.props.addToCalendar}
-         />
+         <View style={{marginTop: 60}}>
+           <List
+             showPlant={this.showPlant} plants={this.state.results}
+             garden={true}
+             removePlant={this.removePlant}
+             addPlant={this.addPlant}
+             addToCalendar={this.props.addToCalendar}
+           />
+          </View>
 
          <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
           <Button title={this.state.canWater ? 'Make Watering Schedule': 'Delete Watering Schedule'}
@@ -216,25 +221,21 @@ class Garden extends Component {
 
      return(
        <View style={{flex: 1, width: 100 + "%", height: 100 + "%", backgroundColor: 'white'}}>
-        <Header
-          // centerComponent={<ImageHeader />}
-          outerContainerStyles={{backgroundColor: '#8b81f1', marginTop: 70}}
-          innerContainerStyles={{backgroundColor: '#8b81f1'}}
-        />
          <SearchBar
            ref={(ref) => this.searchBar = ref}
            data={this.state.plants}
            handleResults={this._handleResults}
            showOnLoad
          />
-
-         <List
-           showPlant={this.showPlant} plants={this.state.plants}
-           garden={true}
-           removePlant={this.removePlant}
-           addPlant={this.addPlant}
-           addToCalendar={this.props.addToCalendar}
-         />
+         <View style={{marginTop: 60}}>
+           <List
+             showPlant={this.showPlant} plants={this.state.plants}
+             garden={true}
+             removePlant={this.removePlant}
+             addPlant={this.addPlant}
+             addToCalendar={this.props.addToCalendar}
+           />
+          </View>
 
          <View style={{flexDirection: 'row', marginVertical: 5}}>
           <Button title={this.state.canWater ? 'Make Watering Schedule': 'Delete Watering Schedule'}
@@ -261,11 +262,7 @@ class Garden extends Component {
    renderNone(){
      return(
        <View style={{flex: 1, width: 100 + "%", height: 100 + "%", backgroundColor: 'white', justifyContent: "center", alignItems: "center"}}>
-       <Header
-       // centerComponent={<HeaderImage />}
-       outerContainerStyles={{backgroundColor: '#8b81f1', width: 100 + "%"}}
-       innerContainerStyles={{backgroundColor: '#8b81f1'}}
-       />
+
           <Text style={{marginTop: 200, fontSize: 50}}>No Plants in your Garden Yet!</Text>
           <List
             garden={true}
@@ -276,7 +273,15 @@ class Garden extends Component {
    }
  }
 
-  export default Garden;
+ export default createStackNavigator(
+   {
+     Garden: Garden,
+     PlantView: PlantView
+   },
+   {
+     initialRouteName: 'Garden',
+   }
+ );
 
   const styles = StyleSheet.create({
   button: {backgroundColor: '#C71585',
