@@ -184,6 +184,9 @@ class Garden extends Component {
            data={this.state.plants}
            handleResults={this._handleResults}
            onClear={this._handleClear}
+           showOnLoad
+           focusOnLayout={false}
+           heightAdjust={-2}
          />
 
          <View style={{marginTop: 60}}>
@@ -226,6 +229,8 @@ class Garden extends Component {
            data={this.state.plants}
            handleResults={this._handleResults}
            showOnLoad
+           focusOnLayout={false}
+           heightAdjust={-2}
          />
          <View style={{marginTop: 60}}>
            <List

@@ -159,6 +159,7 @@ static navigationOptions = {
           handleResults={this._handleResults}
           onClear={this._handleClear}
           showOnLoad
+          focusOnLayout={false}
           heightAdjust={-2}
         />
 
@@ -179,6 +180,8 @@ static navigationOptions = {
           data={this.state.plants}
           handleResults={this._handleResults}
           showOnLoad
+          focusOnLayout={false}
+          heightAdjust={-2}
         />
 
         <List
