@@ -20,7 +20,6 @@ class List extends Component {
           showPlant={this.props.showPlant}
           garden={this.props.garden}
           removePlant={this.props.removePlant}
-          addPlant={this.props.addPlant}
           addToCalendar={this.props.addToCalendar}
         />
     );

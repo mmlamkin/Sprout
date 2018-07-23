@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { View, StyleSheet, Image, Text, TouchableHighlight, Modal, Header, ImageBackground} from 'react-native'
+import { View, Image, Text, TouchableHighlight, Modal} from 'react-native'
 import { List } from "../containers"
 import axios from 'axios';
 import { createStackNavigator} from  'react-navigation';

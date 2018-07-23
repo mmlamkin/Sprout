@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, Text  } from 'react-native';
-import { Header, Button, Image } from 'react-native-elements';
+import { Header, Button } from 'react-native-elements';
 import { List } from "../containers";
 import axios from 'axios';
 import Config from '../../../env';
@@ -21,13 +21,15 @@ import { Expo, Constants, Calendar, Permissions} from 'expo';
 
 class Garden extends Component {
   constructor() {
-  super()
-  this.state = {
-    plants: [],
-    results: []
+    super()
+    this.state = {
+      plants: [],
+      results: [],
+      wateringEvent: '',
+      canWater: true
+    }
+    this._handleResults = this._handleResults.bind(this);
   }
-  this._handleResults = this._handleResults.bind(this);
-}
 
   componentDidMount() {
     this.props.navigation.addListener('willFocus', (status: true) => {
@@ -86,7 +88,7 @@ class Garden extends Component {
     let end_of_season = Date.parse(`Oct 7 ${year} 9:00`)
     let startDate = today
     let endDate = end_of_season
-    let reminderCount = Math.round((endDate - today)/(60*60*7*1000*24))
+
 
     if (today > start_of_season && today < end_of_season) {
       startDate = today
@@ -100,6 +102,8 @@ class Garden extends Component {
       startDate = start_of_season
       endDate = end_of_season
     }
+
+    let reminderCount = Math.round((endDate - today)/(60*60*7*1000*24))
 
     let waterDetails = {
       title: 'Water Your Garden!',
@@ -116,8 +120,30 @@ class Garden extends Component {
 
     Calendar.createEventAsync(globalState.calendar_id, waterDetails)
       .then( event => {
-        alert("get watering!");
+        console.log(startDate);
+        alert("Get watering!");
+        this.setState({
+          wateringEvent: event.toString(),
+          canWater: false})
+      })
+      .catch( error => {
+        console.log((error));
+      });
+  }
 
+  deleteWateringSchedule = () => {
+
+    let recurringEventOptions = {
+      futureEvents: true
+    }
+
+    Calendar.deleteEventAsync(this.state.wateringEvent, recurringEventOptions)
+      .then( event => {
+        alert("Watering Schedule Deleted")
+        this.setState({
+          wateringEvent: '',
+          canWater: true
+        })
       })
       .catch( error => {
         console.log((error));
@@ -139,7 +165,6 @@ class Garden extends Component {
       const results = this.state.results
 
       return results.length > 0 ? this.renderResults() : this.renderFullList()
-
     }
 
    renderResults(){
@@ -149,12 +174,14 @@ class Garden extends Component {
        // centerComponent={<HeaderImage />}
        outerContainerStyles={{backgroundColor: '#8b81f1', top: 50, height: 70, position: 'absolute', width: 100 + "%"}}
        />
+        <View style={{marginBottom: 70}}>
          <SearchBar
            ref={(ref) => this.searchBar = ref}
            data={this.state.plants}
            handleResults={this._handleResults}
            onClear={this._handleClear}
          />
+         </View>
 
          <List
            showPlant={this.showPlant} plants={this.state.results}
@@ -165,12 +192,12 @@ class Garden extends Component {
          />
 
          <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
-          <Button title='Make Watering Schedule'
+          <Button title={this.state.canWater ? 'Make Watering Schedule': 'Delete Watering Schedule'}
             containerStyle={{fontSize: 1, marginTop: 20}}
             buttonStyle={styles.button}
             textStyle={{fontSize: 6}}
             onPress={() =>
-              this.makeWateringSchedule()
+              this.state.canWater ? this.makeWateringSchedule():this.deleteWateringSchedule()
             }/>
 
             <Button title='Clear Garden'
@@ -210,13 +237,13 @@ class Garden extends Component {
          />
 
          <View style={{flexDirection: 'row', marginVertical: 5}}>
-          <Button title='Make Watering Schedule'
-            containerStyle={{marginTop: 20}}
-            buttonStyle={styles.button}
-            textStyle={{fontSize: 6}}
-            onPress={() =>
-              this.makeWateringSchedule()
-            }/>
+          <Button title={this.state.canWater ? 'Make Watering Schedule': 'Delete Watering Schedule'}
+           containerStyle={{fontSize: 1, marginTop: 20}}
+           buttonStyle={styles.button}
+           textStyle={{fontSize: 6}}
+           onPress={() =>
+             this.state.canWater ? this.makeWateringSchedule():this.deleteWateringSchedule()
+           }/>
 
             <Button title='Clear Garden'
             containerStyle={{marginTop: 20}}

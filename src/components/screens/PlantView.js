@@ -1,9 +1,6 @@
 import React, {Component} from 'react'
 import { View, Text, Image, StyleSheet, ScrollView, ImageBackground } from 'react-native'
-import PLANTDATA from '../../../test-data/plants'
 import config from "../../config"
-import { Header } from 'react-native-elements';
-import { Col, Row, Grid } from "react-native-easy-grid";
 import axios from 'axios';
 import Config from '../../../env';
 
@@ -89,22 +86,22 @@ class PlantView extends Component {
           </View>
 
           <View style={{backgroundColor: 'white'}}>
-          <Text>{this.state.plant.description}</Text>
+          <Text style={{marginHorizontal: 5}}>{this.state.plant.description}</Text>
 
-          <Text>{this.state.plant.when_to_plant} {this.state.plant.growing_from_seed} {this.state.plant.spacing}</Text>
-          <Text>**{this.state.plant.planting_considerations}**  </Text>
+          <Text style={{marginHorizontal: 5}}>{this.state.plant.when_to_plant} {this.state.plant.growing_from_seed} {this.state.plant.spacing}</Text>
+          <Text style={{marginHorizontal: 5}}>**{this.state.plant.planting_considerations}**  </Text>
           </View>
 
           <View style={{backgroundColor: 'white'}}>
-          <Text style={{fontWeight:   'bold', alignSelf: 'center'}}>Watering:</Text><Text> {this.state.plant.watering}</Text>
+          <Text style={{fontWeight:   'bold', alignSelf: 'center'}}>Watering:</Text><Text style={{marginHorizontal: 5}}> {this.state.plant.watering}</Text>
           </View>
 
           <View style={{backgroundColor: 'white'}}>
-          <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>Harvesting:</Text><Text> {this.state.plant.harvesting}</Text>
+          <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>Harvesting:</Text><Text style={{marginHorizontal: 5}}> {this.state.plant.harvesting}</Text>
           </View>
 
           <View style={{backgroundColor: 'white'}}>
-          <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>Other Fun  Stuff:</Text><Text> {this.state.plant.other_care}</Text>
+          <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>Other Fun  Stuff:</Text><Text style={{marginHorizontal: 5}}> {this.state.plant.other_care}</Text>
           </View>
         </View>
       </ScrollView>
