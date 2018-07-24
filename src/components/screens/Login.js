@@ -61,6 +61,7 @@ class Login extends Component {
         return {cancelled: true};
       }
     } catch(e) {
+      console.log(e);
       showMessage({
         message: "Could not complete login",
         type: "danger",

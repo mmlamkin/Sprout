@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, Text, Image  } from 'react-native';
+import { View, StyleSheet, Text, Image, Alert  } from 'react-native';
 import { Button } from 'react-native-elements';
 import { List } from "../containers";
 import axios from 'axios';
@@ -80,6 +80,8 @@ class Garden extends Component {
 
     clearGarden = () => {
       const url = `http://${Config.PLANTS_API}/users/${globalState.current_user_id}/gardens/` + this.state.garden_id
+
+
       axios.delete(url)
       .then((response) => {
         showMessage({
@@ -97,6 +99,18 @@ class Garden extends Component {
         })
       });
     }
+
+    _showAlert = () => {
+  Alert.alert(
+    'Alert Title',
+    'Are you sure you want to clear your garden?',
+    [
+      {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+      {text: 'OK', onPress: () => this.clearGarden()},
+    ],
+    { cancelable: true }
+  )
+}
 
 
   makeWateringSchedule = () => {
@@ -295,7 +309,7 @@ class Garden extends Component {
             buttonStyle={styles.button}
             textStyle={{fontSize: 8}}
             onPress={() =>
-              this.clearGarden()
+              this._showAlert()
             }/>
           </View>
 

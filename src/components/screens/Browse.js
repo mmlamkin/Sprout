@@ -103,25 +103,24 @@ static navigationOptions = {
      let year = today.getFullYear().toString()
      let nextYear = (parseInt(year) + 1).toString()
 
-     let startdate = Date.parse(`april 1 ${nextYear} 12:00`)
-     let enddate = Date.parse(`april 1 ${nextYear} 1:00`)
-     let startNotes = `Time to think about planting the ${name} in your garden!`
+     let startdate = Date.parse(`april 1 ${nextYear} 9:00`)
+     let enddate = Date.parse(`april 1 ${nextYear} 9:00`)
+     let startNotes = `Right around now is the best time to plant your ${name} in your garden! Double check care on your app and check your local weather!`
 
      if (early_dates) {
-       let early_date1 = Date.parse(`${early_dates.split('-')[0]} ${year} 12:00`)
-       let early_date2 = Date.parse(`${early_dates.split('-')[1]} ${year} 12:00`)
+       let early_date1 = Date.parse(`${early_dates.split('-')[0]} ${year} 9:00`)
+       let early_date2 = Date.parse(`${early_dates.split('-')[1]} ${year} 9:00`)
        // let late_date1 = Date.parse(`${late_dates.split('-')[0]} ${year} 12:00`)
        // let late_date2 = Date.parse(`${late_dates.split('-')[1]} ${year} 12:00`)
 
        if (early_date1 > today) {
          startdate = early_date1
          enddate = early_date1
-         startNotes = `Time to think about planting the ${name} in your garden!`
+
        }
        else {
          startdate = early_date2
          enddate = early_date2
-         startNotes = `Right around now is the best time to plant your ${name} in your garden! Double check care on your app and check your local weather!`
        }
      }
 

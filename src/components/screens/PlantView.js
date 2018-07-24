@@ -75,7 +75,7 @@ class PlantView extends Component {
       <ScrollView >
         <View style={styles.outerContainer}>
           <Text style={{fontSize: 15}}>Everything you need to know about...</Text>
-          <Text style={{marginBottom: 15, fontSize: 20, marginTop: 15, fontWeight: 'bold'}}>{this.state.plant.name}</Text>
+          <Text style={{marginBottom: 15, fontSize: 20, marginTop: 15, fontWeight: 'bold', color: '#ef7d73'}}>{this.state.plant.name}</Text>
           <Image style={styles.imageStyle} source={{uri: "https:" + this.state.plant.image}} />
 
           <View style={styles.middleContainer}>
