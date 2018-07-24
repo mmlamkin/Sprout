@@ -7,11 +7,6 @@ import FlashMessage from "react-native-flash-message";
 
 
 export default class App extends React.Component {
-  componentDidMount() {
-   Font.loadAsync({
-     'Acme': require('./assets/fonts/Acme-Regular.ttf'),
-   });
- }
 
   render() {
 

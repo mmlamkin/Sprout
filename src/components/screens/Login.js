@@ -80,7 +80,7 @@ class Login extends Component {
           <Image style={{height: 200,
             width: 175, marginTop: 125}}
             source = {config.images.sproutBig}/>
-            <Text style={{ marginVertical: 10, fontSize: 38, fontWeight: 'bold', alignSelf: 'center', color: '#ef7d73'}}>Sprout</Text>
+            <Text style={{ marginVertical: 10, fontSize: 38, fontWeight: 'bold', alignSelf: 'center', color: '#FF6C73', fontFamily: 'sans-serif'}}>Sprout</Text>
 
             <Button
             title="Sign In with Google"
@@ -93,7 +93,7 @@ class Login extends Component {
               height: 45,
               borderColor: "transparent",
               borderWidth: 0,
-              borderRadius: 10,
+              borderRadius: 25,
               marginTop: 20
             }}
             />

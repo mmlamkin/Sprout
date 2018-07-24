@@ -116,14 +116,14 @@ plantContainer: {
   width: 100 + "%",
   flexDirection: 'row',
   borderBottomWidth: StyleSheet.hairlineWidth,
-  borderBottomColor: '#94ff7c'
+  borderBottomColor: '#9ECE9A'
 },
 summaryContainer: {
   flexDirection: "column",
   width: 45 + "%",
   justifyContent: "space-around"
 },
-button: {backgroundColor: '#C71585',
+button: {backgroundColor: '#FF6C73',
 width: 60,
 height: 20,
 borderColor: "transparent",

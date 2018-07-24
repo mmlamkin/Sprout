@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
-import { View, Image, Text, TouchableHighlight, ImageBackground} from 'react-native'
+import { View, ImageBackground, Image, Text} from 'react-native'
 import { List } from "../containers"
 import axios from 'axios';
-import { createStackNavigator} from  'react-navigation';
+import { createStackNavigator, Header} from  'react-navigation';
 import PlantView from './PlantView';
 import Config from '../../../env';
 import config from "../../config";
@@ -18,7 +18,6 @@ class BrowseView extends Component {
     plants: [],
     results: [],
     events: [],
-    modalVisible: true
   }
    this._handleResults = this._handleResults.bind(this);
    this.accessCalendars = this.accessCalendars.bind(this);
@@ -29,11 +28,11 @@ static navigationOptions = {
       <View style={{justifyContent: 'center', flexDirection: 'row', alignItems: 'center', marginLeft: 33 + '%'}}>
       <Image style={{height: 30,
         width: 30}}
-        source = {config.images.sproutLittle}/><Text style={{fontSize: 24, fontWeight: 'bold', paddingLeft: 8, color: '#fff'}}>Sprout</Text>
+        source = {config.images.sproutLittle}/><Text style={{fontSize: 24, fontWeight: 'bold', paddingLeft: 8, color: 'white', fontFamily: 'sans-serif'}}>Sprout</Text>
         </View>
       ),
       headerStyle: {
-        backgroundColor: "#8b81f1",
+        backgroundColor: "#077187",
         maxHeight: 90
       },
 
@@ -41,6 +40,7 @@ static navigationOptions = {
         fontWeight: 'bold',
         textAlign: "center"
       },
+
   };
 
   componentDidMount() {

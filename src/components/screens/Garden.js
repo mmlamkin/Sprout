@@ -29,11 +29,11 @@ class Garden extends Component {
         <View style={{justifyContent: 'center', flexDirection: 'row', alignItems: 'center', marginLeft: 33 + '%'}}>
         <Image style={{height: 30,
           width: 30}}
-          source = {config.images.sproutLittle}/><Text style={{fontSize: 24, fontWeight: 'bold', paddingLeft: 8, color: '#fff'}}>Sprout</Text>
+          source = {config.images.sproutLittle}/><Text style={{fontSize: 24, fontWeight: 'bold', paddingLeft: 8, color: '#fff', fontFamily: 'sans-serif'}}>Sprout</Text>
           </View>
         ),
         headerStyle: {
-          backgroundColor: "#8b81f1",
+          backgroundColor: "#077187",
           maxHeight: 90
         },
 
@@ -343,7 +343,7 @@ class Garden extends Component {
  );
 
   const styles = StyleSheet.create({
-  button: {backgroundColor: '#C71585',
+  button: {backgroundColor: '#FF6C73',
   width: 60,
   height: 20,
   borderColor: "transparent",

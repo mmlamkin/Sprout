@@ -1,23 +1,20 @@
 import React, { Component } from 'react'
-import { View, Image, Text, StyleSheet } from 'react-native';
+import { View, Image, Text, StyleSheet, Header } from 'react-native';
 import config from "../../config";
-import axios from 'axios';
 
 
-class HeaderImage extends Component {
 
 
-  render () {
+const ImageHeader = props => (
+  <View style={{ backgroundColor: '#eee' }}>
+    <Image
+      style={StyleSheet.absoluteFill}
+      source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/3/36/Hopetoun_falls.jpg' }}
+    />
+    <Header {...props} style={{ backgroundColor: 'transparent' }}/>
+  </View>
+);
 
-    return (
-      <View>
-        <Image style={{height: 30,
-          width: 30}}
-          source = {config.images.sproutLittle}/>
-          <Text style={{fontSize: 24, fontWeight: 'bold', paddingLeft: 8, color: '#fff'}}>Sprout</Text>
-      </View>
-    );
-  }
-}
 
-export default HeaderImage;
+
+export default ImageHeader;
