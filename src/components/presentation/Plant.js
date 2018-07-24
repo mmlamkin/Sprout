@@ -115,7 +115,8 @@ const styles = StyleSheet.create({
 plantContainer: {
   width: 100 + "%",
   flexDirection: 'row',
-  borderBottomWidth: StyleSheet.hairlineWidth
+  borderBottomWidth: StyleSheet.hairlineWidth,
+  borderBottomColor: '#94ff7c'
 },
 summaryContainer: {
   flexDirection: "column",
@@ -128,5 +129,6 @@ height: 20,
 borderColor: "transparent",
 borderWidth: 0,
 borderRadius: 25,
-justifyContent: "center", alignItems: "center"}
+justifyContent: "center",
+alignItems: "center"}
 });

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, Text, Image  } from 'react-native';
-import { Header, Button } from 'react-native-elements';
+import { Button } from 'react-native-elements';
 import { List } from "../containers";
 import axios from 'axios';
 import Config from '../../../env';
@@ -85,6 +85,7 @@ class Garden extends Component {
         showMessage({
           message: "Garden cleared!",
           type: "success",
+          floating: true
         });
         this.setState({plants: response.data.plants})
       })
@@ -144,6 +145,7 @@ class Garden extends Component {
           showMessage({
             message: "Get watering!",
             type: "success",
+            floating: true
           });
           this.setState({
             wateringEvent: event.toString(),
@@ -178,6 +180,7 @@ class Garden extends Component {
         showMessage({
           message: "Watering schedule deleted",
           type: "success",
+          floating: true
         });
         this.setState({
           wateringEvent: '',
@@ -315,7 +318,7 @@ class Garden extends Component {
    }
  }
 
- export default createStackNavigator(
+ export default  createStackNavigator(
    {
      Garden: Garden,
      PlantView: PlantView

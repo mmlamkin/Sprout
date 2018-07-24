@@ -18,7 +18,7 @@ export default class App extends React.Component {
     return (
       <View style={{flex: 1}}>
         <Sprout />
-        <FlashMessage position="top" />
+        <FlashMessage position="center" />
       </View>
     );
   }

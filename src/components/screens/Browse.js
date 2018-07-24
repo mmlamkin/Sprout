@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { View, Image, Text, TouchableHighlight, Modal} from 'react-native'
+import { View, Image, Text, TouchableHighlight, ImageBackground} from 'react-native'
 import { List } from "../containers"
 import axios from 'axios';
 import { createStackNavigator} from  'react-navigation';
@@ -138,6 +138,7 @@ static navigationOptions = {
            showMessage({
              message: `${name} added to your calendar`,
              type: "success",
+             floating: true
            });
          })
          .catch( error => {
@@ -149,12 +150,14 @@ static navigationOptions = {
        })}
       else {
         showMessage({
-          message: `Could not add ${name} to your calendar without calendar access`
+          message: `Could not add ${name} to your calendar without calendar access`,
           type: "danger",
           floating: true
-      }
+      })
+    }
+  }
 
-   }
+
 
     _handleResults(results) {
       this.setState({ results });
@@ -170,7 +173,11 @@ static navigationOptions = {
   render(){
     const results = this.state.results
 
-    return results.length > 0 ? this.renderResults() : this.renderFullList()
+    return (
+      <ImageBackground source={{uri: 'https://img.clipartxtras.com/f2caff2e59f0a644fb39e936bfa9a98e_drawn-fruit-fruit-vegetable-pencil-and-in-color-drawn-fruit-fruits-and-vegetables-background-drawing_1300-1390.jpeg'}} style={{width: '100%', height: '100%'}}>
+        {results.length > 0 ? this.renderResults() : this.renderFullList()}
+      </ImageBackground>
+    )
 
   }
 
