@@ -2,7 +2,6 @@
 import React from 'react';
 import { View } from 'react-native';
 import Sprout from './src/components/Sprout';
-import {Font} from 'expo';
 import FlashMessage from "react-native-flash-message";
 
 

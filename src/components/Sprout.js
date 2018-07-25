@@ -26,7 +26,7 @@ const Tabs = createBottomTabNavigator({
         width: 32}}
         source = {config.images.garden}
         />,
-        
+
   }},
 })
 

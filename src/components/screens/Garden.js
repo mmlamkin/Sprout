@@ -102,7 +102,7 @@ class Garden extends Component {
 
     _showAlert = () => {
   Alert.alert(
-    'Alert Title',
+    'Really??',
     'Are you sure you want to clear your garden?',
     [
       {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
@@ -212,7 +212,7 @@ class Garden extends Component {
 
     render(){
       const gardenPlants = this.state.plants
-      if (gardenPlants != []) {
+      if (gardenPlants !== [] || gardenPlants == !undefined) {
         return this.renderPlants()
       }
       else {
@@ -322,7 +322,7 @@ class Garden extends Component {
      return(
        <View style={{flex: 1, width: 100 + "%", height: 100 + "%", backgroundColor: 'white', justifyContent: "center", alignItems: "center"}}>
 
-          <Text style={{marginTop: 200, fontSize: 50}}>No Plants in your Garden Yet!</Text>
+          <Text style={{marginTop: 200, fontSize: 15}}>No Plants in your Garden Yet!</Text>
           <List
             garden={true}
           />

@@ -29,7 +29,7 @@ buttonTitle= () => {
   }
 }
 
-  async addToGarden() {
+  async addToGarden () {
     const url = `http://${Config.PLANTS_API}/users/${globalState.current_user_id}/plants/` + this.props.plant_id
 
     let response
